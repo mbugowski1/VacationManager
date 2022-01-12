@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Wyślij" HorizontalAlignment="Left" Margin="647,368,0,0" VerticalAlignment="Top" Height="30" Width="120"/>
+        <Label Content="Dane: " HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ilość dni: " HorizontalAlignment="Left" Margin="645,30,0,0" VerticalAlignment="Top"/>
+        <Label Content="Typ urlopu: &#xD;&#xA;" HorizontalAlignment="Left" Margin="28,78,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data początkowa" HorizontalAlignment="Left" Margin="72,127,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data końcowa&#xD;&#xA;" HorizontalAlignment="Left" Margin="531,135,0,0" VerticalAlignment="Top"/>
+        <Label Content="Szymon Kordal&#xD;&#xA;" HorizontalAlignment="Left" Margin="64,22,0,0" VerticalAlignment="Top" Name="dane"/>
+        <Label Content="25&#xA;" HorizontalAlignment="Left" Margin="696,30,0,0" VerticalAlignment="Top" Name="dni_urlopu"/>
 
     </Grid>
 </Window>
