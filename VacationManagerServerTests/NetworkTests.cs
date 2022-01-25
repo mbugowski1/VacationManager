@@ -30,7 +30,7 @@ namespace VacationManagerServerTests
             // Arrange
             ushort port = 1001;
             Network service = new(port);
-            DataArgs data = null;
+            DataArgs? data = null;
             bool wait = true;
             service.dataReceived += (sender, e) =>
             {
