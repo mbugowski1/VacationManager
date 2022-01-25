@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManager", "VacationManager\VacationManager.csproj", "{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{7470CF13-DF73-4513-894A-B23F1F0AD2D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerServer", "Server\VacationManagerServer.csproj", "{7470CF13-DF73-4513-894A-B23F1F0AD2D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
