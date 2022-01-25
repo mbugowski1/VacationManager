@@ -11,8 +11,8 @@ namespace Server
 {
     public class Network
     {
-        public EventHandler dataReceived;
-        public EventHandler dataSent;
+        public EventHandler<DataArgs> dataReceived;
+        public EventHandler<DataArgs> dataSent;
 
         private readonly List<Socket> _clients = new();
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -30,7 +30,7 @@ namespace Server
             Socket client = _socket.EndAccept(AR);
             _clients.Add(client);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
-            Debug.WriteLine("Client connected");
+            Console.WriteLine("Client connected");
             _socket.BeginAccept(AcceptCallback, null);
         }
         private void ReceiveCallback(IAsyncResult AR)
@@ -44,13 +44,13 @@ namespace Server
             }
             catch(SocketException)
             {
-                Debug.WriteLine("Client disconnected");
+                Console.WriteLine("Client disconnected");
                 _clients.Remove(client);
                 return;
             }
             string recText = Encoding.UTF8.GetString(_buffer, 0, received);
             DataArgs data = new("Unknown", recText);
-            dataReceived.Invoke(client, data);
+            dataReceived?.Invoke(client, data);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
         }
         public void Close()
