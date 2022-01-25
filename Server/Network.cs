@@ -11,6 +11,9 @@ namespace Server
 {
     public class Network
     {
+        public EventHandler dataReceived;
+        public EventHandler dataSent;
+
         private readonly List<Socket> _clients = new();
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private readonly byte[] _buffer = new byte[2048];
@@ -46,6 +49,8 @@ namespace Server
                 return;
             }
             string recText = Encoding.UTF8.GetString(_buffer, 0, received);
+            DataArgs data = new("Unknown", recText);
+            dataReceived.Invoke(client, data);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
         }
         public void Close()
