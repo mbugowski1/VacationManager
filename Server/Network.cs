@@ -52,7 +52,7 @@ namespace Server
             DataArgs data = new("Unknown", recText);
             dataReceived?.Invoke(client, data);
             NetworkActions(AR, recText);
-            //client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
+            client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             client.Close();
             _clients.Remove(client);
         }
