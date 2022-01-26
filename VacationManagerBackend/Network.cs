@@ -42,20 +42,17 @@ namespace VacationManagerBackend
         }
         public void SendMessage(string message)
         {
-            byte[] buffer = new byte[2048];
+            if (!_socket.Connected) throw new SocketException();
             byte[] messageByte = Encoding.UTF8.GetBytes(message);
             _socket.Send(messageByte);
         }
-        public void Close() => _socket.Close();
-        /*private void SendCallback(IAsyncResult AR)
+        public async Task<string> ReceiveMessage()
         {
-            Socket socket = (Socket)AR.AsyncState;
-            socket.EndSend(AR);
+            if (!_socket.Connected) throw new SocketException();
+            byte[] buffer = new byte[2048];
+            int length = await _socket.ReceiveAsync(buffer, SocketFlags.None);
+            return Encoding.UTF8.GetString(buffer, 0, length);
         }
-        private void ReceiveCallback(IAsyncResult AR)
-        {
-            Socket socket = (Socket)AR.AsyncState;
-            socket.EndReceive(AR);
-        }*/
+        public void Close() => _socket.Close();
     }
 }
