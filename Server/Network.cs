@@ -23,13 +23,13 @@ namespace Server
         {
             _socket.Bind(new IPEndPoint(IPAddress.Any, port));
             _socket.Listen(5);
-            _socket.BeginAccept(AcceptCallback, null);
+            _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);
         }
         private void AcceptCallback(IAsyncResult AR)
         {
             Socket client = _socket.EndAccept(AR);
             _clients.Add(client);
-            client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
+            client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             Console.WriteLine("Client connected");
             _socket.BeginAccept(AcceptCallback, null);
         }
@@ -63,13 +63,7 @@ namespace Server
             byte[] text = Encoding.UTF8.GetBytes(message);
             DataArgs data = new DataArgs("Unknown", message);
             dataSent?.Invoke(client, data);
-            client.BeginSend(text, 0, text.Length, SocketFlags.None, new AsyncCallback(SendCallback), client);
-        }
-        private void SendCallback(IAsyncResult AR)
-        {
-            Socket? client = (Socket?)AR.AsyncState;
-            if (client == null) throw new SocketException();
-            client.EndSend(AR);
+            client.Send(text);
         }
         private void NetworkActions(IAsyncResult AR, string message)
         {
