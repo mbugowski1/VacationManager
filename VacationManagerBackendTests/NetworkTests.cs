@@ -57,5 +57,29 @@ namespace VacationManagerBackendTests
             // Assert
             Assert.Equal(message, receivedMessage);
         }
+        [Fact]
+        public void ReceivingData_FromServer_GetString()
+        {
+            // Assign
+            ushort port = 1102;
+            string message = "test";
+            string receivedMessage = String.Empty;
+            Socket server = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            server.Bind(new IPEndPoint(IPAddress.Any, port));
+            server.Listen(1);
+            server.BeginAccept(new AsyncCallback(AR =>
+            {
+                Socket client = server.EndAccept(AR);
+                client.Send(Encoding.UTF8.GetBytes(message));
+            }), null);
+            Network client = new Network(IPAddress.Loopback, port);
+            client.Connect();
+
+            // Act
+            receivedMessage = client.ReceiveMessage().Result;
+
+            // Assert
+            Assert.Equal(message, receivedMessage);
+        }
     }
 }
