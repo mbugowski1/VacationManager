@@ -5,6 +5,7 @@ using Server;
 using System.Collections.Generic;
 using System.Text;
 using System;
+using System.Threading;
 
 namespace VacationManagerServerTests
 {
@@ -22,7 +23,6 @@ namespace VacationManagerServerTests
 
             Assert.True(socket.Connected);
             socket.Close();
-            service.Close();
         }
         [Fact]
         public void ReceivingData_Server_GetString()
@@ -49,10 +49,11 @@ namespace VacationManagerServerTests
             while (wait) ;
 
             // Assert
+            #pragma warning disable CS8602 // Wy³uskanie odwo³ania, które mo¿e mieæ wartoœæ null.
             Assert.Equal(user, data.Username);
+            #pragma warning restore CS8602 // Wy³uskanie odwo³ania, które mo¿e mieæ wartoœæ null.
             Assert.Equal(message, data.Data);
 
-            service.Close();
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
         }
@@ -69,28 +70,6 @@ namespace VacationManagerServerTests
             socket.Close();
           
             Assert.True(true);
-            service.Close();
-        }
-        [Theory]
-        [InlineData(0, 1003)]
-        [InlineData(1, 1004)]
-        [InlineData(2, 1005)]
-        public void ShuttingDown_Server(short userCount, ushort port)
-        {
-            Network service = new(port);
-            service.Open();
-
-            List<Socket> users = new();
-            for(short i = 0; i < userCount; i++)
-            {
-                var user = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                user.Connect(IPAddress.Loopback, port);
-                users.Add(user);
-            }
-
-            var exception = Record.Exception(() => service.Close());
-            users.ForEach(x => x.Close());
-            Assert.Null(exception);
         }
         [Fact]
         public void SendingData_FromServer_SendString()
@@ -114,7 +93,6 @@ namespace VacationManagerServerTests
             // Assert
             Assert.Equal(expected, received);
             socket.Close();
-            service.Close();
         }
         [Fact]
         public void SendingData_FromServer_GetEvent()
@@ -124,13 +102,18 @@ namespace VacationManagerServerTests
             Network service = new(port);
             Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             string message = "test";
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            bool eventFired = false;
+            service.dataSent += (source, e) => eventFired = true;
 
             // Act
             service.Open();
             socket.Connect(IPAddress.Loopback, port);
+            socket.Send(messageBytes);
+            socket.Receive(new byte[2048]);
 
             // Assert
-            Assert.Raises<DataArgs>(handler => service.dataSent += handler, handler => service.dataSent -= handler, () => service.SendMessage(null, message));
+            Assert.True(eventFired);
         }
     }
 }

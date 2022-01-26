@@ -11,8 +11,8 @@ namespace Server
 {
     public class Network
     {
-        public EventHandler<DataArgs> dataReceived;
-        public EventHandler<DataArgs> dataSent;
+        public EventHandler<DataArgs>? dataReceived;
+        public EventHandler<DataArgs>? dataSent;
 
         private readonly List<Socket> _clients = new();
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -56,16 +56,7 @@ namespace Server
             client.Close();
             _clients.Remove(client);
         }
-        public void Close()
-        {
-            foreach (var client in _clients)
-            {
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
-            }
-            _socket.Close();
-        }
-        public void SendMessage(IAsyncResult? AR, string message)
+        public void SendMessage(IAsyncResult AR, string message)
         {
             Socket? client = (Socket?)AR.AsyncState;
             if (client == null) throw new SocketException();
