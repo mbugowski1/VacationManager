@@ -36,7 +36,7 @@ namespace Server
         private void ReceiveCallback(IAsyncResult AR)
         {
             Socket? client = (Socket?)AR.AsyncState;
-            if (client == null) return;
+            if (client == null) throw new SocketException();
             int received;
             try
             {
@@ -51,7 +51,10 @@ namespace Server
             string recText = Encoding.UTF8.GetString(_buffer, 0, received);
             DataArgs data = new("Unknown", recText);
             dataReceived?.Invoke(client, data);
-            client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
+            NetworkActions(AR, recText);
+            //client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, client);
+            client.Close();
+            _clients.Remove(client);
         }
         public void Close()
         {
@@ -61,6 +64,30 @@ namespace Server
                 client.Close();
             }
             _socket.Close();
+        }
+        public void SendMessage(IAsyncResult? AR, string message)
+        {
+            Socket? client = (Socket?)AR.AsyncState;
+            if (client == null) throw new SocketException();
+            byte[] text = Encoding.UTF8.GetBytes(message);
+            DataArgs data = new DataArgs("Unknown", message);
+            dataSent?.Invoke(client, data);
+            client.BeginSend(text, 0, text.Length, SocketFlags.None, new AsyncCallback(SendCallback), client);
+        }
+        private void SendCallback(IAsyncResult AR)
+        {
+            Socket? client = (Socket?)AR.AsyncState;
+            if (client == null) throw new SocketException();
+            client.EndSend(AR);
+        }
+        private void NetworkActions(IAsyncResult AR, string message)
+        {
+            switch(message)
+            {
+                case "test":
+                    SendMessage(AR, "test echo");
+                    break;
+            }
         }
     }
 }
