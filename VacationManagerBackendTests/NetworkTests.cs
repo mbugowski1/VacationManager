@@ -4,6 +4,9 @@ using System.Net.Sockets;
 using System.Net;
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
 
 namespace VacationManagerBackendTests
 {
@@ -37,6 +40,8 @@ namespace VacationManagerBackendTests
             ushort port = 1101;
             string message = "test";
             string receivedMessage = String.Empty;
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
             Socket server = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(new IPEndPoint(IPAddress.Any, port));
             server.Listen(1);
@@ -46,13 +51,28 @@ namespace VacationManagerBackendTests
                 byte[] buffer = new byte[1024];
                 int length = client.Receive(buffer);
                 receivedMessage = Encoding.UTF8.GetString(buffer, 0, length);
+                tokenSource.Cancel();
             }), null);
             Network client = new Network(IPAddress.Loopback, port);
             client.Connect();
 
             // Act
-            client.SendMessage(message);
-            while (receivedMessage == String.Empty) ;
+            client.SendMessage(message).Wait();
+            try
+            {
+                Task.Delay(2000, token).Wait();
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException == null)
+                    throw e;
+                if (e.InnerException.GetType() != typeof(TaskCanceledException))
+                    throw e;
+            }
+            finally
+            {
+                tokenSource.Dispose();
+            }
 
             // Assert
             Assert.Equal(message, receivedMessage);

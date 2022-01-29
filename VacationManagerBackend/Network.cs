@@ -40,11 +40,11 @@ namespace VacationManagerBackend
                 return false;
             return true;
         }
-        public void SendMessage(string message)
+        public async Task SendMessage(string message)
         {
             if (!_socket.Connected) throw new SocketException();
             byte[] messageByte = Encoding.UTF8.GetBytes(message);
-            _socket.Send(messageByte);
+            await _socket.SendAsync(messageByte, SocketFlags.None);
         }
         public async Task<string> ReceiveMessage()
         {

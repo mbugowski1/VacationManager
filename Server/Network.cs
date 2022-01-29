@@ -14,7 +14,7 @@ namespace Server
         public EventHandler<DataArgs>? dataReceived;
         public EventHandler<DataArgs>? dataSent;
 
-        private readonly List<Socket> _clients = new();
+        private readonly Dictionary<Socket, string> _clients = new();
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private readonly byte[] _buffer = new byte[2048];
         private readonly int port;
@@ -28,7 +28,7 @@ namespace Server
         private void AcceptCallback(IAsyncResult AR)
         {
             Socket client = _socket.EndAccept(AR);
-            _clients.Add(client);
+            _clients.Add(client, String.Empty);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             Console.WriteLine("Client connected");
             _socket.BeginAccept(AcceptCallback, null);
