@@ -7,7 +7,7 @@ namespace ClientTestServerApp
         public static Network network = new Network("127.0.0.1", 1337);
         public static void Main()
         {
-            Console.WriteLine("0. Wyjdz\n1. Wyslij");
+            Console.WriteLine("0. Wyjdz");
             if (network.Connect())
                 Console.WriteLine("Polaczono");
             network.dataReceived += (source, args) =>
