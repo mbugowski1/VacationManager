@@ -63,11 +63,17 @@ namespace VacationManagerServer
             else if(_clients[client] == String.Empty)
             {
                 string[] credentials = args.Data.Split(' ');
+                if (credentials.Length != 2)
+                    throw new NetworkAccessForbiddenException("Client provided wrong number of arguments");
                 _clients[client] = credentials[0];
                 if (Security.Auth(credentials[0], Encoding.UTF8.GetBytes(credentials[1])))
-                    SendMessage(client, "success");
+                    SendMessage(client, "correct credentials");
                 else
-                    SendMessage(client, "wrong password");
+                    SendMessage(client, "wrong credentials");
+            }
+            else
+            {
+                throw new WrongDataException();
             }
         }
 
