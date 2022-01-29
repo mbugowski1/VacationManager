@@ -84,6 +84,8 @@ namespace VacationManagerBackendTests
             ushort port = 1102;
             string message = "test";
             string receivedMessage = String.Empty;
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
             Socket server = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(new IPEndPoint(IPAddress.Any, port));
             server.Listen(1);
@@ -93,10 +95,29 @@ namespace VacationManagerBackendTests
                 client.Send(Encoding.UTF8.GetBytes(message));
             }), null);
             Network client = new Network(IPAddress.Loopback, port);
-            client.Connect();
+            client.dataReceived += (source, args) =>
+            {
+                receivedMessage = args.Message;
+                tokenSource.Cancel();
+            };
 
             // Act
-            receivedMessage = client.ReceiveMessage().Result;
+            client.Connect();
+            try
+            {
+                Task.Delay(2000, token).Wait();
+            }
+            catch (AggregateException e)
+            {
+                if (e.InnerException == null)
+                    throw e;
+                if (e.InnerException.GetType() != typeof(TaskCanceledException))
+                    throw e;
+            }
+            finally
+            {
+                tokenSource.Dispose();
+            }
 
             // Assert
             Assert.Equal(message, receivedMessage);

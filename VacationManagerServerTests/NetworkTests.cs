@@ -1,7 +1,7 @@
 using Xunit;
 using System.Net.Sockets;
 using System.Net;
-using Server;
+using VacationManagerServer;
 using System.Collections.Generic;
 using System.Text;
 using System;
@@ -38,7 +38,7 @@ namespace VacationManagerServerTests
                 wait = false;
             };
             Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            string user = "Unknown";
+            string user = String.Empty;
             string message = "test";
             byte[] send = Encoding.UTF8.GetBytes(message);
 
