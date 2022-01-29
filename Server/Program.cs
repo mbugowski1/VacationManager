@@ -1,6 +1,6 @@
 ﻿using System;
 using Topshelf;
-namespace Server
+namespace VacationManagerServer
 {
     public class Program
     {

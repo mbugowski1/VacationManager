@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Server
+namespace VacationManagerServer
 {
     public class Service
     {

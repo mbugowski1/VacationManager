@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace VacationManagerServer
 {
     public class Network
     {
@@ -29,6 +29,7 @@ namespace Server
         {
             Socket client = _socket.EndAccept(AR);
             _clients.Add(client, String.Empty);
+            dataReceived += DataReceived;
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             Console.WriteLine("Client connected");
             _socket.BeginAccept(AcceptCallback, null);
@@ -49,30 +50,34 @@ namespace Server
                 return;
             }
             string recText = Encoding.UTF8.GetString(_buffer, 0, received);
-            DataArgs data = new("Unknown", recText);
+            DataArgs data = new(_clients[client], recText);
             dataReceived?.Invoke(client, data);
-            NetworkActions(AR, recText);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
-            client.Close();
-            _clients.Remove(client);
+            //client.Close();
+            //_clients.Remove(client);
         }
-        public void SendMessage(IAsyncResult AR, string message)
+        private void DataReceived(object source, DataArgs args)
         {
-            Socket? client = (Socket?)AR.AsyncState;
+            Socket client = (Socket)source;
+            if (args.Data == "test") SendMessage(client, "test echo");
+            else if(_clients[client] == String.Empty)
+            {
+                string[] credentials = args.Data.Split(' ');
+                _clients[client] = credentials[0];
+                if (Security.Auth(credentials[0], Encoding.UTF8.GetBytes(credentials[1])))
+                    SendMessage(client, "success");
+                else
+                    SendMessage(client, "wrong password");
+            }
+        }
+
+        public void SendMessage(Socket client, string message)
+        {
             if (client == null) throw new SocketException();
             byte[] text = Encoding.UTF8.GetBytes(message);
-            DataArgs data = new DataArgs("Unknown", message);
+            DataArgs data = new DataArgs(_clients[client], message);
             dataSent?.Invoke(client, data);
             client.Send(text);
-        }
-        private void NetworkActions(IAsyncResult AR, string message)
-        {
-            switch(message)
-            {
-                case "test":
-                    SendMessage(AR, "test echo");
-                    break;
-            }
         }
     }
 }
