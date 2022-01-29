@@ -10,9 +10,11 @@ namespace VacationManagerBackend
 {
     public class Network
     {
+        public EventHandler<NetworkArgs>? dataReceived;
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private readonly IPAddress ip;
         private readonly ushort port;
+        private byte[] buffer = new byte[2048];
         public Network(string ip, ushort port)
         {
             this.ip = IPAddress.Parse(ip);
@@ -38,7 +40,24 @@ namespace VacationManagerBackend
             }
             if (!_socket.Connected)
                 return false;
+            _socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
             return true;
+        }
+        private void ReceiveCallback(IAsyncResult AR)
+        {
+            int received;
+            try
+            {
+                received = _socket.EndReceive(AR);
+            }
+            catch (SocketException)
+            {
+                Console.WriteLine("Server disconnected");
+                return;
+            }
+            var args = new NetworkArgs(Encoding.UTF8.GetString(buffer, 0, received));
+            dataReceived?.Invoke(this, args);
+            _socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
         }
         public async Task SendMessage(string message)
         {
