@@ -5,7 +5,15 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManager", "VacationManager\VacationManager.csproj", "{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{7470CF13-DF73-4513-894A-B23F1F0AD2D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerServer", "Server\VacationManagerServer.csproj", "{7470CF13-DF73-4513-894A-B23F1F0AD2D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerServerTests", "VacationManagerServerTests\VacationManagerServerTests.csproj", "{E6CB89B4-3CE6-4E60-B300-454F0E092101}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerBackend", "VacationManagerBackend\VacationManagerBackend.csproj", "{F34A5A1B-DAA1-41F5-87B3-7E3756BAE708}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerBackendTests", "VacationManagerBackendTests\VacationManagerBackendTests.csproj", "{1487FCC9-B54E-474E-88AB-394E2A717A49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTestServerApp", "ClientTestServerApp\ClientTestServerApp.csproj", "{4E746B09-227A-4002-A941-5273B2C78AFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CB89B4-3CE6-4E60-B300-454F0E092101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CB89B4-3CE6-4E60-B300-454F0E092101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CB89B4-3CE6-4E60-B300-454F0E092101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CB89B4-3CE6-4E60-B300-454F0E092101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34A5A1B-DAA1-41F5-87B3-7E3756BAE708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34A5A1B-DAA1-41F5-87B3-7E3756BAE708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34A5A1B-DAA1-41F5-87B3-7E3756BAE708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34A5A1B-DAA1-41F5-87B3-7E3756BAE708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1487FCC9-B54E-474E-88AB-394E2A717A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1487FCC9-B54E-474E-88AB-394E2A717A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1487FCC9-B54E-474E-88AB-394E2A717A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1487FCC9-B54E-474E-88AB-394E2A717A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E746B09-227A-4002-A941-5273B2C78AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E746B09-227A-4002-A941-5273B2C78AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E746B09-227A-4002-A941-5273B2C78AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E746B09-227A-4002-A941-5273B2C78AFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
