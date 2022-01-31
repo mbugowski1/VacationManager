@@ -59,21 +59,28 @@ namespace VacationManagerServer
         private void DataReceived(object source, DataArgs args)
         {
             Socket client = (Socket)source;
-            if (args.Data == "test") SendMessage(client, "test echo");
-            else if(_clients[client] == String.Empty)
-            {
-                string[] credentials = args.Data.Split(' ');
-                if (credentials.Length != 2)
-                    throw new NetworkAccessForbiddenException("Client provided wrong number of arguments");
-                _clients[client] = credentials[0];
-                if (Security.Auth(credentials[0], Encoding.UTF8.GetBytes(credentials[1])))
-                    SendMessage(client, "correct credentials");
-                else
-                    SendMessage(client, "wrong credentials");
-            }
+            string[] arguments = args.Data.Split(' ');
+            if (arguments.Length == 0)
+                throw new WrongDataException();
             else
             {
-                throw new WrongDataException();
+                switch(arguments[0])
+                {
+                    case "test":
+                        SendMessage(client, "test echo");
+                        break;
+                    case "add":
+                        if (arguments.Length != 3)
+                            throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
+                        Database.DatabaseConnection.CreateUser(arguments[1], Encoding.UTF8.GetBytes(arguments[2]));
+                        break;
+                    case "check":
+                        if (arguments.Length != 3)
+                            throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
+                        bool success = Database.DatabaseConnection.CheckPassword(arguments[1], Encoding.UTF8.GetBytes(arguments[2])).Result;
+                        SendMessage(client, success ? "correct" : "incorrect");
+                        break;
+                }
             }
         }
 
