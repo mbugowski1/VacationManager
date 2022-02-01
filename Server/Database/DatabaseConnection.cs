@@ -10,17 +10,14 @@ namespace VacationManagerServer.Database
 {
     public class DatabaseConnection
     {
-        private static string ConnectionString(string name)
-        {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
-        }
+        private static string ConnectionString { get => ConfigurationManager.ConnectionStrings["DB"].ConnectionString; }
         public static void CreateUser(Person user, byte[] password, byte[] salt)
         {
             string query = "INSERT INTO credentials VALUES (@Username, @Password);";
             string query2 = "INSERT INTO salts VALUES (@Username, @Salt)";
             string query3s = "SELECT positionID FROM positions WHERE position = @Name";
             string query3 = "INSERT INTO data VALUES (@Username, @Firstname, @Lastname, @Position)";
-            using (var connection = new MySqlConnection(ConnectionString("DB")))
+            using (var connection = new MySqlConnection(ConnectionString))
             {
                 var command = new MySqlCommand(query, connection);
                 command.Parameters.Add("@Username", MySqlDbType.VarChar, 50);
@@ -75,7 +72,7 @@ namespace VacationManagerServer.Database
             bool success = false;
             string query = "SELECT salt FROM salts WHERE username = @Username";
             string query2 = "SELECT password FROM credentials WHERE username = @Username";
-            using (var connection = new MySqlConnection(ConnectionString("DB")))
+            using (var connection = new MySqlConnection(ConnectionString))
             {
                 var command = new MySqlCommand(query, connection);
                 command.Parameters.Add("@Username", MySqlDbType.VarChar, 50);
@@ -112,7 +109,7 @@ namespace VacationManagerServer.Database
         public static Person GetData(string username)
         {
             string query = "SELECT name, surname, positions.position as position FROM data LEFT JOIN positions ON data.position = positions.positionID WHERE username = @Username";
-            using(var connection = new MySqlConnection())
+            using(var connection = new MySqlConnection(ConnectionString))
             {
                 var command = new MySqlCommand(query, connection);
                 command.Parameters.Add("@Username", MySqlDbType.VarChar, 50);
@@ -123,6 +120,7 @@ namespace VacationManagerServer.Database
                     connection.Open();
                     using(var reader = command.ExecuteReader())
                     {
+                        reader.Read();
                         string firstname = (string)reader["name"];
                         string lastname = (string)reader["surname"];
                         string position = (string)reader["position"];

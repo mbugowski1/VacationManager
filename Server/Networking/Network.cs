@@ -60,6 +60,7 @@ namespace VacationManagerServer
             byte[][] arguments = SeperateStream(args.Data, ' ');
             string command = Encoding.UTF8.GetString(arguments[0]);
             string username;
+            Database.Person person;
             if (arguments.Length == 0)
                 throw new WrongDataException();
             else
@@ -73,7 +74,7 @@ namespace VacationManagerServer
                         if (arguments.Length != 5 && arguments.Length != 6)
                             throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
                         username = Encoding.UTF8.GetString(arguments[1]);
-                        Database.Person person = new Database.Person(username, Encoding.UTF8.GetString(arguments[3]),
+                        person = new Database.Person(username, Encoding.UTF8.GetString(arguments[3]),
                                                                     Encoding.UTF8.GetString(arguments[4]));
                         if (arguments.Length == 5)
                             person.Position = "worker";
@@ -85,10 +86,29 @@ namespace VacationManagerServer
                     case "check":
                         if (arguments.Length != 3)
                             throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
+                        if (_clients[client] != String.Empty)
+                            throw new NetworkAccessForbiddenException(client, "User was already logged");
                         username = Encoding.UTF8.GetString(arguments[1]);
                         bool success = Database.DatabaseConnection.CheckPassword(username, arguments[2]);
+                        if (success)
+                            _clients[client] = username;
                         SendMessage(client, success ? "correct" : "incorrect");
                         break;
+                    case "get":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        if (_clients[client] == String.Empty)
+                            throw new NetworkAccessForbiddenException(client);
+                        person = Database.DatabaseConnection.GetData(_clients[client]);
+                        SendMessage(client, person.ToString());
+                        break;
+                    case "exit":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        _clients[client] = String.Empty;
+                        break;
+                    default:
+                        throw new WrongDataException();
                 }
             }
         }
