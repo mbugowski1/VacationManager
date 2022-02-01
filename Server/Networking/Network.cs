@@ -49,18 +49,20 @@ namespace VacationManagerServer
                 return;
             }
             ArraySegment<byte> sending = new(_buffer, 0, received);
-            Message data = Serializer.Deserialize(sending.ToArray());
+            Message data = Serializer.Deserialize<Message>(sending.ToArray());
             dataReceived?.Invoke(client, data);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
         }
         public void SendMessage(Socket client, Message.Code code, string message)
         {
             byte[] text = Encoding.UTF8.GetBytes(message);
-            SendMessage<byte[]>(client, code, (object)text);
+            SendMessage(client, code, text);
         }
-        public void SendMessage<T>(Socket client, Message.Code code, object message)
+        public void SendMessage<T>(Socket client, Message.Code code, T message)
         {
-            Message data = new Message(message, code);
+            Message data = new Message();
+            data.Data = Serializer.Serialize(message);
+            data.Operation = code;
             dataSent?.Invoke(client, data);
             client.Send(Serializer.Serialize(data));
         }

@@ -25,12 +25,6 @@ namespace VacationManagerLibrary
             Test
         }
         public Code Operation { get; set; }
-        public object Data { set; get; }
-
-        public Message(object data, Code code)
-        {
-            Operation = code;
-            Data = data;
-        }
+        public byte[]? Data { set; get; }
     }
 }

@@ -11,10 +11,10 @@ namespace VacationManagerLibrary
             JsonSerializer.Serialize(memStream, message);
             return memStream.ToArray();
         }
-        public static Message Deserialize(byte[] message)
+        public static T Deserialize<T>(byte[] message)
         {
             using (var memStream = new MemoryStream(message))
-                return JsonSerializer.Deserialize<Message>(memStream);
+                return JsonSerializer.Deserialize<T>(memStream);
         }
     }
 }

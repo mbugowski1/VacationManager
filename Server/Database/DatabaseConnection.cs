@@ -321,7 +321,7 @@ namespace VacationManagerServer.Database
                         while(reader.Read())
                         {
                             var newEvent = new VacationEvent((string)reader["sender"], (string)reader["recipient"],
-                                (DateTime)reader["start"], (DateTime)reader["end"], (int)reader["code"], (int)reader["type"], (int)reader["ID"], (string)reader["description"], (string)reader["typedesc"]);
+                                (DateTime)reader["start"], (DateTime)reader["end"], (VacationEvent.Code)reader["code"], (VacationEvent.Type)reader["type"], (int)reader["ID"], (string)reader["description"], (string)reader["typedesc"]);
                             events.Add(newEvent);
                         }
                     }

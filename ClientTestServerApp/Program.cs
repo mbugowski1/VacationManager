@@ -2,21 +2,18 @@
 using System.Text;
 using VacationManagerBackend;
 using VacationManagerLibrary;
+using static VacationManagerLibrary.Message.Code;
 namespace ClientTestServerApp
 {
     public class Program
     {
-        public static Network network = new Network("127.0.0.1", 1337);
+        public static Network network;
         public static void Main()
         {
+            network = new Network("127.0.0.1", 1337);
             Console.WriteLine("0. Wyjdz");
             if (network.Connect())
                 Console.WriteLine("Polaczono");
-            network.dataReceived += (source, args) =>
-            {
-                string responce = ((NetworkArgs)args).Message;
-                Console.WriteLine(responce);
-            };
             string message;
             while ((message = Console.ReadLine()) != "0")
             {
@@ -25,10 +22,30 @@ namespace ClientTestServerApp
                     Console.WriteLine("Napisz wiadomosc");
                     message = Console.ReadLine();
                 }
-                network.SendMessage(message).Wait();
+                Control(message);
                 Console.WriteLine("Wyslano");
-            }*
+            }
 
+        }
+        private static void Control(string text)
+        {
+            string[] args = text.Split(' ');
+            string commandCase = args[0];
+            Message.Code code;
+            Message message = new Message();
+            byte[] messageToSend;
+            switch (commandCase)
+            {
+                case "test":
+                    message.Operation = Message.Code.Test;
+                    messageToSend = Serializer.Serialize(message);
+                    network.SendMessage(messageToSend);
+                    break;
+            }
+        }
+        public class TestClass
+        {
+            public int Prop { get; set; }
         }
     }
 }
