@@ -60,6 +60,7 @@ namespace VacationManagerServer
             byte[][] arguments = SeperateStream(args.Data, ' ');
             string command = Encoding.UTF8.GetString(arguments[0]);
             string username;
+            string message = String.Empty;
             Database.Person person;
             if (arguments.Length == 0)
                 throw new WrongDataException();
@@ -143,14 +144,16 @@ namespace VacationManagerServer
                             throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
                         if (_clients[client] == String.Empty)
                             throw new NetworkAccessForbiddenException(client);
-                        Database.DatabaseConnection.GetEvents(_clients[client], true).ForEach(x => Console.WriteLine(x.ToString()));
+                        Database.DatabaseConnection.GetEvents(_clients[client], true).ForEach(x => message += x + "\n");
+                        SendMessage(client, message);
                         break;
                     case "fromevents":
                         if (arguments.Length != 1)
                             throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
                         if (_clients[client] == String.Empty)
                             throw new NetworkAccessForbiddenException(client);
-                        Database.DatabaseConnection.GetEvents(_clients[client]).ForEach(x => Console.WriteLine(x.ToString()));
+                        Database.DatabaseConnection.GetEvents(_clients[client], true).ForEach(x => message += x + "\n");
+                        SendMessage(client, message);
                         break;
                     case "exit":
                         if (arguments.Length != 1)
