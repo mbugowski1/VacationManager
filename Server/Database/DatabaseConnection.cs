@@ -222,5 +222,67 @@ namespace VacationManagerServer.Database
                 }
             }
         }
+        public static void AddSupervisor(string worker, string supervisor)
+        {
+            string query = "INSERT INTO supervisors VALUES (@Worker, @Supervisor)";
+            string checkQuery = "SELECT EXISTS(SELECT username FROM data WHERE username = @Worker)";
+            using(var connection = new MySqlConnection(ConnectionString))
+            {
+                var checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.Add("@Worker", MySqlDbType.VarChar, 50);
+                checkCommand.Parameters["@Worker"].Value = worker;
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Worker", MySqlDbType.VarChar, 50);
+                command.Parameters.Add("@Supervisor", MySqlDbType.VarChar, 50);
+                command.Parameters["@Worker"].Value = worker;
+                command.Parameters["@Supervisor"].Value = supervisor;
+                try
+                {
+                    connection.Open();
+                    bool exists = Convert.ToBoolean(checkCommand.ExecuteScalar());
+                    if (!exists)
+                        throw new UserDoesNotExistException(worker);
+                    checkCommand.Parameters["@Worker"].Value = supervisor;
+                    exists = Convert.ToBoolean(checkCommand.ExecuteScalar());
+                    if (!exists)
+                        throw new UserDoesNotExistException(supervisor);
+                    command.ExecuteNonQuery();
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public static void RemoveSupervisor(string worker, string supervisor)
+        {
+            string query = "DELETE FROM supervisors WHERE worker = @Worker AND supervisor = @Super";
+            using(var connection = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Worker", MySqlDbType.VarChar, 50);
+                command.Parameters.Add("@Super", MySqlDbType.VarChar, 50);
+                command.Parameters["@Worker"].Value = worker;
+                command.Parameters["@Super"].Value = supervisor;
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

@@ -10,6 +10,5 @@ namespace VacationManagerServer.Database
     {
         public int EventID { get; set; }
         public EventDoesNotExist(int id) : base("Event " + id + "doesn\'t exist") => EventID = id;
-        }
     }
 }
