@@ -408,7 +408,7 @@
                                     <Image Source="Assets/holiday_2.png" 
                                        Height="40"
                                        />
-                                    <TextBlock Text="Contacts"
+                                    <TextBlock Text="Moje wnioski"
                                            Margin="40,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -442,7 +442,7 @@
                                     <Image Source="Assets/holiday_3.png" 
                                        Height="39"
                                            />
-                                    <TextBlock Text="Messages"
+                                    <TextBlock Text="Do mnie"
                                            Margin="40,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -476,7 +476,7 @@
                                         Margin=" -16 -10 0 0 ">
                                     <Image Source="Assets/holiday_1.png" 
                                        Height="40" />
-                                    <TextBlock Text="Settings"
+                                    <TextBlock Text="Ustawienia"
                                            Margin="40,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -504,14 +504,17 @@
                                 BorderThickness="0"
                                 Background="Transparent"
                                 Height="40"
-                                Command="{Binding UpdateViewCommand}" CommandParameter="view5" >
+                                Click="btnLogout_click"
+                                Cursor="Hand">
+                                <!--Command="{Binding UpdateViewCommand}" CommandParameter="view5" Cursor="Hand"--> 
+                                
                                 <StackPanel Orientation="Horizontal"
                                         Width="230"
                                         Height="50"
                                         Margin="-16 -10 0 0">
                                     <Image Source="Assets/holiday_1.png" 
                                        Height="40" />
-                                    <TextBlock Text="Log out"
+                                    <TextBlock Text="Wyloguj"
                                            Margin="40,0,0,0"
                                            Style="{StaticResource font_style}"/>
 

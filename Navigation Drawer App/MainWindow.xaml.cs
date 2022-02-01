@@ -59,5 +59,12 @@ namespace Navigation_Drawer_App
         {
             Close();
         }
+
+        private void btnLogout_click(object sender, RoutedEventArgs e)
+        {
+            LoginScreen loginScreen = new LoginScreen();
+            loginScreen.Show();
+            this.Close();
+        }
     }
 }
