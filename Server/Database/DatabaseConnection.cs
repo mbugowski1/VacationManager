@@ -52,14 +52,14 @@ namespace VacationManagerServer.Database
                     int positionId = Convert.ToInt32(command3s.ExecuteScalar());
                     command3.Parameters["@Position"].Value = positionId;
                     command3.ExecuteNonQuery();
-                    Console.WriteLine("Utworzono konto dla " + user.Username);
+                    Console.WriteLine("Created account for " + user.Username);
                 }
                 catch(MySqlException e)
                 {
                     if(e.Number == 1062)
                             throw new UserAlreadyExistsException(user.Username);
                     Console.WriteLine(e.Message);
-                    Console.WriteLine(": Nie udalo sie utworzyc konta pracownika");
+                    Console.WriteLine("Couldn\'t create account for user " + user.Username);
                 }
                 finally
                 {
@@ -91,6 +91,8 @@ namespace VacationManagerServer.Database
                     password = Security.HashPassword(password, ref salt);
 
                     success = Enumerable.SequenceEqual(password, savedPassword);
+                    if (success)
+                        Console.WriteLine(username + " logged in");
                 }
                 catch(MySqlException)
                 {
@@ -174,6 +176,8 @@ namespace VacationManagerServer.Database
                     if (!userExists)
                         throw new UserDoesNotExistException(vacationEvent.Recipient);
                     command.ExecuteNonQuery();
+                    Console.WriteLine("Added new event");
+                    Console.WriteLine(vacationEvent.ToString());
                 }
                 catch(MySqlException e)
                 {
@@ -211,6 +215,8 @@ namespace VacationManagerServer.Database
                     int affected = command.ExecuteNonQuery();
                     if (affected == 0)
                         throw new EventDoesNotExist(id);
+                    else
+                        Console.WriteLine("Changed code for " + id);
                 }
                 catch(MySqlException e)
                 {
@@ -247,6 +253,7 @@ namespace VacationManagerServer.Database
                     if (!exists)
                         throw new UserDoesNotExistException(supervisor);
                     command.ExecuteNonQuery();
+                    Console.WriteLine($"Added new supervisor: { worker } -> { supervisor }");
                 }
                 catch(MySqlException e)
                 {
@@ -273,6 +280,7 @@ namespace VacationManagerServer.Database
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
+                    Console.WriteLine($"Supervisor has been removed: {worker} -> {supervisor}");
                 }
                 catch(MySqlException e)
                 {
@@ -282,6 +290,46 @@ namespace VacationManagerServer.Database
                 {
                     connection.Close();
                 }
+            }
+        }
+        public static List<VacationEvent> GetEvents(string worker, bool supervisor = false)
+        {
+            var events = new List<VacationEvent>();
+            string query = "SELECT ID, sender, recipient, start, end, code, description " +
+                "FROM events LEFT JOIN supervisors ON sender = worker AND recipient = supervisor " +
+                "LEFT JOIN codes ON codeID = code WHERE ";
+            if (supervisor)
+                query += "supervisor = @Worker";
+            else
+                query += "worker = @Worker";
+            using(var connection = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Worker", MySqlDbType.VarChar, 50);
+                command.Parameters["@Worker"].Value = worker;
+
+                try
+                {
+                    connection.Open();
+                    using(var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            var newEvent = new VacationEvent((string)reader["sender"], (string)reader["recipient"],
+                                (DateTime)reader["start"], (DateTime)reader["end"], (int)reader["code"], (string)reader["description"]);
+                            events.Add(newEvent);
+                        }
+                    }
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return events;
             }
         }
     }

@@ -138,6 +138,20 @@ namespace VacationManagerServer
                             throw new NetworkAccessForbiddenException(client);
                         Database.DatabaseConnection.RemoveSupervisor(Encoding.UTF8.GetString(arguments[1]), Encoding.UTF8.GetString(arguments[2]));
                         break;
+                    case "toevents":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        if (_clients[client] == String.Empty)
+                            throw new NetworkAccessForbiddenException(client);
+                        Database.DatabaseConnection.GetEvents(_clients[client], true).ForEach(x => Console.WriteLine(x.ToString()));
+                        break;
+                    case "fromevents":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        if (_clients[client] == String.Empty)
+                            throw new NetworkAccessForbiddenException(client);
+                        Database.DatabaseConnection.GetEvents(_clients[client]).ForEach(x => Console.WriteLine(x.ToString()));
+                        break;
                     case "exit":
                         if (arguments.Length != 1)
                             throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
