@@ -1,14 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Configurations>Debug;Release;FullDebug</Configurations>
+  </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="Topshelf" Version="4.3.0" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\VacationManagerLibrary\VacationManagerLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

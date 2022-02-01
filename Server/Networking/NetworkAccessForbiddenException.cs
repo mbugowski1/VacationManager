@@ -9,11 +9,9 @@ namespace VacationManagerServer
 {
     public class NetworkAccessForbiddenException : Exception
     {
-        public Socket? Client { get; set; } = null;
-        public NetworkAccessForbiddenException() { }
-        public NetworkAccessForbiddenException(string message)
-            : base(message) { }
-        public NetworkAccessForbiddenException(Socket client)
+        public Socket Client { get; set; } = null;
+        private static string defaultMessage = "User wasn\'t logged in";
+        public NetworkAccessForbiddenException(Socket client) : base(defaultMessage)
         {
             Client = client;
         }
