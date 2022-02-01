@@ -13,6 +13,7 @@ namespace VacationManagerServer
 {
     public class Service
     {
+        internal static Random rng = new ();
         private volatile bool _working;
         public bool Working
         {
