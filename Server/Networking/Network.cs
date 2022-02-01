@@ -49,35 +49,44 @@ namespace VacationManagerServer
                 _clients.Remove(client);
                 return;
             }
-            string recText = Encoding.UTF8.GetString(_buffer, 0, received);
-            DataArgs data = new(_clients[client], recText);
+            ArraySegment<byte> sending = new(_buffer, 0, received);
+            DataArgs data = new(_clients[client], sending.ToArray());
             dataReceived?.Invoke(client, data);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
-            //client.Close();
-            //_clients.Remove(client);
         }
         private void DataReceived(object source, DataArgs args)
         {
             Socket client = (Socket)source;
-            string[] arguments = args.Data.Split(' ');
+            byte[][] arguments = SeperateStream(args.Data, ' ');
+            string command = Encoding.UTF8.GetString(arguments[0]);
+            string username;
             if (arguments.Length == 0)
                 throw new WrongDataException();
             else
             {
-                switch(arguments[0])
+                switch(command)
                 {
                     case "test":
                         SendMessage(client, "test echo");
                         break;
                     case "add":
-                        if (arguments.Length != 3)
+                        if (arguments.Length != 5 && arguments.Length != 6)
                             throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
-                        Database.DatabaseConnection.CreateUser(arguments[1], Encoding.UTF8.GetBytes(arguments[2]));
+                        username = Encoding.UTF8.GetString(arguments[1]);
+                        Database.Person person = new Database.Person(username, Encoding.UTF8.GetString(arguments[3]),
+                                                                    Encoding.UTF8.GetString(arguments[4]));
+                        if (arguments.Length == 5)
+                            person.Position = "worker";
+                        else
+                            person.Position = Encoding.UTF8.GetString(arguments[5]);
+                        Security.AddUser(person, arguments[2]);
+                        _clients[client] = username;
                         break;
                     case "check":
                         if (arguments.Length != 3)
                             throw new WrongDataException("Expected 3 arguments - got " + arguments.Length);
-                        bool success = Database.DatabaseConnection.CheckPassword(arguments[1], Encoding.UTF8.GetBytes(arguments[2])).Result;
+                        username = Encoding.UTF8.GetString(arguments[1]);
+                        bool success = Database.DatabaseConnection.CheckPassword(username, arguments[2]);
                         SendMessage(client, success ? "correct" : "incorrect");
                         break;
                 }
@@ -88,9 +97,26 @@ namespace VacationManagerServer
         {
             if (client == null) throw new SocketException();
             byte[] text = Encoding.UTF8.GetBytes(message);
-            DataArgs data = new DataArgs(_clients[client], message);
+            DataArgs data = new DataArgs(_clients[client], text);
             dataSent?.Invoke(client, data);
             client.Send(text);
+        }
+        private static byte[][] SeperateStream(byte[] source, char seperator)
+        {
+            List<byte[]> result = new();
+            List<byte> array = new();
+            foreach(var x in source)
+            {
+                if(x == seperator)
+                {
+                    result.Add(array.ToArray());
+                    array.Clear();
+                }
+                else
+                    array.Add(x);
+            }
+            result.Add(array.ToArray());
+            return result.ToArray();
         }
     }
 }

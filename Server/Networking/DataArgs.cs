@@ -10,8 +10,8 @@ namespace VacationManagerServer
     public class DataArgs : EventArgs
     {
         public string Username { get; set; }
-        public string Data { get; set; }
-        public DataArgs(string username, string data)
+        public byte[] Data { get; set; }
+        public DataArgs(string username, byte[] data)
         {
             Username = username;
             Data = data;
