@@ -30,33 +30,33 @@
             <ListViewItem>
                 <Button Height="100"
                         Width="200" Cursor="Hand">
-                    <TextBox TextWrapping="Wrap"
+                    <TextBlock TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
                         Width="200">
-                    <TextBox TextWrapping="Wrap"
+                    <TextBlock TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
                         Width="200">
-                    <TextBox TextWrapping="Wrap"
+                    <TextBlock TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
                         Width="200">
-                    <TextBox TextWrapping="Wrap"
+                    <TextBlock TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop  z dnia y "></TextBox>
+                             Text="Wniosek o urlop  z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
         </ListView>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
-        Width="800"
+        Width="750"
         Topmost="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -43,12 +43,12 @@
             <Setter Property="Placement" Value="Right"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="100" />
-            <Setter Property="Margin" Value="20,0,0,0" />
+            <Setter Property="Margin" Value="140,0,0,0" />
             <Setter Property="Background" Value="#cbf080" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="Fonts/Lato-regular.ttf #Lato" />
-            <Setter Property="PlacementRectangle" Value="60,0,0,0" />
+            <Setter Property="PlacementRectangle" Value="160,0,0,0" />
             <Setter Property="HorizontalOffset" Value="15" />
             <Setter Property="VerticalOffset" Value="6" />
             <Setter Property="HasDropShadow" Value="True" />
@@ -386,7 +386,8 @@
 
                                 <ToolTip x:Name="tt_add"
                                          Content="Dodaj wniosek"
-                                         Style="{StaticResource tt_style}"/>
+                                         Style="{StaticResource tt_style}"
+                                         />
 
 
                             </ListViewItem.ToolTip>

@@ -57,12 +57,16 @@ namespace Navigation_Drawer_App
 
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
-            bool valid = true;
+            bool valid = false;
             if (valid)
             {
                 MainWindow dashboard = new MainWindow();
                 dashboard.Show();
                 this.Close();
+            }
+            else
+            {
+                IncorrectText.Visibility = Visibility.Visible;
             }
         }
     }

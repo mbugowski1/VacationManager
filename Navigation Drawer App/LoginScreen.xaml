@@ -99,9 +99,19 @@
                         FontSize="18"
                         Content="ZALOGUJ SIĘ" 
                         Click="btnSubmit_click" Cursor="Hand"/>
+                <!--Incorrect credentials--> 
+                <TextBlock FontSize="17"
+                           x:Name="IncorrectText"
+                           Visibility="Collapsed"
+                           Foreground="Red"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Text="Niepoprawne dane autoryzacyjne"/>
 
             </StackPanel>
 
         </materialDesign:DialogHost>
+
+                                   
     </materialDesign:Card>
 </Window>
