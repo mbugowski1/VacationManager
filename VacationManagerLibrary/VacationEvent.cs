@@ -30,18 +30,6 @@ namespace VacationManagerLibrary
         public string? CodeDesc { get; set; }
         public Type TypeId{ get; set; }
         public string? TypeDesc { get; set; }
-        public VacationEvent(string sender, string recipient, DateTime start, DateTime stop, Code code, Type type, int? id = null, string? codedesc = null, string? typedesc = null)
-        {
-            ID = id;
-            Sender = sender;
-            Recipient = recipient;
-            Start = start;
-            Stop = stop;
-            CodeId = code;
-            TypeId = type;
-            CodeDesc = codedesc;
-            TypeDesc = typedesc;
-        }
         public override string ToString()
         {
             return $"{ Sender } -> { Recipient } ({ Start.ToShortDateString() } { Stop.ToShortDateString() }): ({ CodeId.ToString() }){ CodeDesc } || ({TypeId.ToString()}){TypeDesc}";

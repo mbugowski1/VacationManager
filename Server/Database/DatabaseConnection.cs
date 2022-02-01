@@ -192,7 +192,7 @@ namespace VacationManagerServer.Database
 
             }
         }
-        public static bool ChangeEventCode(int id, int code)
+        public static bool ChangeEventCode(int id, Message.Code code)
         {
             string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
             string query = "UPDATE events SET code = @Code WHERE ID = @Id";
@@ -324,8 +324,16 @@ namespace VacationManagerServer.Database
                     {
                         while(reader.Read())
                         {
-                            var newEvent = new VacationEvent((string)reader["sender"], (string)reader["recipient"],
-                                (DateTime)reader["start"], (DateTime)reader["end"], (VacationEvent.Code)reader["code"], (VacationEvent.Type)reader["type"], (int)reader["ID"], (string)reader["description"], (string)reader["typedesc"]);
+                            var newEvent = new VacationEvent();
+                            newEvent.Sender = (string)reader["sender"];
+                            newEvent.Recipient = (string)reader["recipient"];
+                            newEvent.Start = (DateTime)reader["start"];
+                            newEvent.Stop = (DateTime)reader["end"];
+                            newEvent.CodeId = (VacationEvent.Code)reader["code"];
+                            newEvent.TypeId = (VacationEvent.Type)reader["type"];
+                            newEvent.ID = (int)reader["ID"];
+                            newEvent.CodeDesc = (string)reader["description"];
+                            newEvent.TypeDesc = (string)reader["typedesc"];
                             events.Add(newEvent);
                         }
                     }

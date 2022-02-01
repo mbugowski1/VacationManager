@@ -22,6 +22,7 @@ namespace VacationManagerLibrary
             GetEventsFromMe,
             GetMySupervisors,
             GetMyWorkers,
+            Exit,
             Test
         }
         public Code Operation { get; set; }

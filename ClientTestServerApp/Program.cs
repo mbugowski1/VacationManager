@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using VacationManagerBackend;
 using VacationManagerLibrary;
@@ -51,6 +52,11 @@ namespace ClientTestServerApp
                     messageToSend = Serializer.Serialize(message);
                     network.SendMessage(messageToSend);
                     break;
+                case "myevents":
+                    message.Operation = Message.Code.GetEventsToMe;
+                    messageToSend = Serializer.Serialize(message);
+                    network.SendMessage(messageToSend);
+                    break;
             }
         }
         private static void SetUp(object source, Message message)
@@ -62,6 +68,9 @@ namespace ClientTestServerApp
                     break;
                 case CheckPass:
                     Console.WriteLine((Serializer.Deserialize<bool>(message.Data)) ? "correct" : "incorrect");
+                    break;
+                case GetEventsToMe:
+                    Serializer.Deserialize<List<VacationEvent>>(message.Data).ForEach(x => Console.WriteLine(x.ToString()));
                     break;
             }
         }

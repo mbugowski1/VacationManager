@@ -47,7 +47,7 @@ namespace VacationManagerServer
                     if (_clients[client] == String.Empty)
                         throw new UnauthorizedAccessException();
                     intArgs = Serializer.Deserialize<int[]>(message.Data);
-                    SendMessage<bool>(client, ChangeEventCode, DatabaseConnection.ChangeEventCode(intArgs[0], intArgs[1]));
+                    SendMessage<bool>(client, ChangeEventCode, DatabaseConnection.ChangeEventCode(intArgs[0], (Message.Code)intArgs[1]));
                     break;
                 case NewSupervisor:
                     if (_clients[client] == String.Empty)
@@ -80,6 +80,12 @@ namespace VacationManagerServer
                     if (_clients[client] == String.Empty)
                         throw new UnauthorizedAccessException();
                     SendMessage<List<string>>(client, GetMyWorkers, DatabaseConnection.GetWorkers(_clients[client]));
+                    break;
+                case Exit:
+                    if (_clients[client] == String.Empty)
+                        throw new UnauthorizedAccessException();
+                    _clients[client] = String.Empty;
+                    SendMessage<bool>(client, Exit, true);
                     break;
             }
         }
