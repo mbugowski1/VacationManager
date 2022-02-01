@@ -10,11 +10,11 @@ namespace VacationManagerServer.Database
     {
         public string Sender { get; set; }
         public string Recipient { get; set; }
-        public DateOnly Start { get; set; }
-        public DateOnly Stop { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime Stop { get; set; }
         public int Code { get; set; }
         public string? Desc { get; set; }
-        public VacationEvent(string sender, string recipient, DateOnly start, DateOnly stop, int code)
+        public VacationEvent(string sender, string recipient, DateTime start, DateTime stop, int code)
         {
             Sender = sender;
             Recipient = recipient;
@@ -22,7 +22,7 @@ namespace VacationManagerServer.Database
             Stop = stop;
             Code = code;
         }
-        public VacationEvent(string sender, string recipient, DateOnly start, DateOnly stop, int code, string desc)
+        public VacationEvent(string sender, string recipient, DateTime start, DateTime stop, int code, string desc)
         {
             Sender = sender;
             Recipient = recipient;

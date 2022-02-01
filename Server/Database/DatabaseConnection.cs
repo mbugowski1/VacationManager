@@ -89,9 +89,6 @@ namespace VacationManagerServer.Database
                     byte[] savedPassword = (byte[])command2.ExecuteScalar();
 
                     password = Security.HashPassword(password, ref salt);
-                    Console.WriteLine("Spodziewane: " + Encoding.UTF8.GetString(password));
-                    Console.WriteLine("Sol: " + Encoding.UTF8.GetString(salt));
-                    Console.WriteLine("Odczytane: " + Encoding.UTF8.GetString(savedPassword));
 
                     success = Enumerable.SequenceEqual(password, savedPassword);
                 }
@@ -138,6 +135,91 @@ namespace VacationManagerServer.Database
                     connection.Close();
                 }
                 return person;
+            }
+        }
+        public static void SendEvent(VacationEvent vacationEvent)
+        {
+            string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
+            string checkQuery2 = "SELECT EXISTS(SELECT username FROM data WHERE username = @Recipient)";
+            string query = "INSERT INTO events(sender, recipient, start, end, code) VALUES (@Sender, @Recipient, @Start, @End, @Code)";
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                var checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.Add("@Code", MySqlDbType.Int32);
+                checkCommand.Parameters["@Code"].Value = vacationEvent.Code;
+
+                var checkCommand2 = new MySqlCommand(checkQuery2, connection);
+                checkCommand2.Parameters.Add("@Recipient", MySqlDbType.VarChar, 50);
+                checkCommand2.Parameters["@Recipient"].Value = vacationEvent.Recipient;
+
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Sender", MySqlDbType.VarChar, 50);
+                command.Parameters.Add("@Recipient", MySqlDbType.VarChar, 50);
+                command.Parameters.Add("@Start", MySqlDbType.Date);
+                command.Parameters.Add("@End", MySqlDbType.Date);
+                command.Parameters.Add("@Code", MySqlDbType.Int32);
+                command.Parameters["@Sender"].Value = vacationEvent.Sender;
+                command.Parameters["@Recipient"].Value = vacationEvent.Recipient;
+                command.Parameters["@Start"].Value = vacationEvent.Start;
+                command.Parameters["@End"].Value = vacationEvent.Stop;
+                command.Parameters["@Code"].Value = vacationEvent.Code;
+
+                try
+                {
+                    connection.Open();
+                    bool codeExists = Convert.ToBoolean(checkCommand.ExecuteScalar());
+                    if (!codeExists)
+                        throw new CodeDoesNotExistException(vacationEvent.Code);
+                    bool userExists = Convert.ToBoolean(checkCommand2.ExecuteScalar());
+                    if (!userExists)
+                        throw new UserDoesNotExistException(vacationEvent.Recipient);
+                    command.ExecuteNonQuery();
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+        }
+        public static void ChangeEventCode(int id, int code)
+        {
+            string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
+            string query = "UPDATE events SET code = @Code WHERE ID = @Id";
+            using(var connection = new MySqlConnection(ConnectionString))
+            {
+                var checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.Add("@Code", MySqlDbType.Int32);
+                checkCommand.Parameters["@Code"].Value = code;
+
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Code", MySqlDbType.Int32);
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Code"].Value = code;
+                command.Parameters["@Id"].Value = id;
+
+                try
+                {
+                    connection.Open();
+                    bool codeExists = Convert.ToBoolean(checkCommand.ExecuteScalar());
+                    if (!codeExists)
+                        throw new CodeDoesNotExistException(code);
+                    int affected = command.ExecuteNonQuery();
+                    if (affected == 0)
+                        throw new EventDoesNotExist(id);
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
     }
