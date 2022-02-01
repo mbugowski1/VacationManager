@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace VacationManagerServer.Database
 {
-    public class DatabaseConnection
+    public static class DatabaseConnection
     {
         private static string ConnectionString { get => ConfigurationManager.ConnectionStrings["DB"].ConnectionString; }
         public static void CreateUser(Person user, byte[] password, byte[] salt)
