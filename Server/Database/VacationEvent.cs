@@ -31,7 +31,7 @@ namespace VacationManagerServer.Database
         }
         public override string ToString()
         {
-            return $"{ Sender } -> { Recipient } ({ Start.ToShortDateString() } { Stop.ToShortDateString() }): ({ Code }) { CodeDesc } || ({Type}) {TypeDesc}";
+            return $"{ Sender } -> { Recipient } ({ Start.ToShortDateString() } { Stop.ToShortDateString() }): ({ Code }){ CodeDesc } || ({Type}){TypeDesc}";
         }
     }
 }
