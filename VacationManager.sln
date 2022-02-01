@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManager", "VacationManager\VacationManager.csproj", "{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerServer", "Server\VacationManagerServer.csproj", "{7470CF13-DF73-4513-894A-B23F1F0AD2D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerServerTests", "VacationManagerServerTests\VacationManagerServerTests.csproj", "{E6CB89B4-3CE6-4E60-B300-454F0E092101}"
@@ -15,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerBackendTests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientTestServerApp", "ClientTestServerApp\ClientTestServerApp.csproj", "{4E746B09-227A-4002-A941-5273B2C78AFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigation Drawer App", "Navigation Drawer App\Navigation Drawer App.csproj", "{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManager", "Navigation Drawer App\VacationManager.csproj", "{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DF0C4F8-71EF-4709-BF0E-A0946B64C9C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7470CF13-DF73-4513-894A-B23F1F0AD2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
