@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientTestServerApp", "Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManager", "Navigation Drawer App\VacationManager.csproj", "{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacationManagerLibrary", "VacationManagerLibrary\VacationManagerLibrary.csproj", "{0DC985EA-AAB4-4369-B83A-D9674E759CF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 		{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}.FullDebug|Any CPU.Build.0 = Debug|Any CPU
 		{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4A8131A-8AAE-49FF-86ED-38C89A8333C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.FullDebug|Any CPU.ActiveCfg = FullDebug|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.FullDebug|Any CPU.Build.0 = FullDebug|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC985EA-AAB4-4369-B83A-D9674E759CF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
