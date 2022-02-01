@@ -465,39 +465,7 @@
                         </ListViewItem>
 
                         <!--//settings-->
-                        <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
-                            <Button x:Name="button4"
-                                BorderThickness="0"
-                                Height="50"
-                                Background="Transparent"
-                                Command="{Binding UpdateViewCommand}" CommandParameter="view4" >
-                                <StackPanel Orientation="Horizontal"
-                                        Width="230"
-                                        Height="50"
-                                        Margin=" -16 -10 0 0 ">
-                                    <Image Source="Assets/holiday_4.png" 
-                                       Height="37" />
-                                    <TextBlock Text="Ustawienia"
-                                           Margin="30,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                                </StackPanel>
-                            </Button>
-
-
-                            <!--Tooltip-->
-
-                            <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_settings"
-                                         Content="Ustawienia"
-                                         Style="{StaticResource tt_style}"/>
-
-
-                            </ListViewItem.ToolTip>
-
-                        </ListViewItem>
+                       
 
                         <!--//logout-->
                         <ListViewItem HorizontalAlignment="Left"

@@ -42,14 +42,6 @@ namespace Navigation_Drawer_App.Commands
             {
                 viewModel.SelectedViewModel = new view3();
             }
-            else if (parameter.ToString() == "view4")
-            {
-                viewModel.SelectedViewModel = new view4();
-            }
-            else if (parameter.ToString() == "view5")
-            {
-                viewModel.SelectedViewModel = new view5();
-            }
         }
     }
 }

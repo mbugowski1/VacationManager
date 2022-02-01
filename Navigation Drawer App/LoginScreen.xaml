@@ -57,7 +57,7 @@
                 <!--logo section-->
 
                 <Image Margin="0 60 0 5"
-                       Source="logo.png"
+                       Source="Assets/logo.png"
                        Height="100"/>
 
                 <TextBlock Margin="0 25 0 5"

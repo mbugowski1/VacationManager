@@ -31,14 +31,8 @@
             <views:view2/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:view3}">
-            <views:view3/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:view4}">
-            <views:view4/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:view5}">
-            <views:view5/>
-        </DataTemplate>
+                <views:view3/>
+            </DataTemplate>
         </ResourceDictionary>
 
 

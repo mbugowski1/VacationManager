@@ -37,7 +37,6 @@ namespace Navigation_Drawer_App
                 tt_add.Visibility = Visibility.Collapsed;
                 tt_my_holidays.Visibility = Visibility.Collapsed;
                 tt_holidays_to_me.Visibility = Visibility.Collapsed;
-                tt_settings.Visibility = Visibility.Collapsed;
                 tt_logout.Visibility = Visibility.Collapsed;
             }
             else
@@ -45,7 +44,6 @@ namespace Navigation_Drawer_App
                 tt_add.Visibility = Visibility.Visible;
                 tt_my_holidays.Visibility = Visibility.Visible;
                 tt_holidays_to_me.Visibility = Visibility.Visible;
-                tt_settings.Visibility = Visibility.Visible;
                 tt_logout.Visibility = Visibility.Visible;
             }
         }

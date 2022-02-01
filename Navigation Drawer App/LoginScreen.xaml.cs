@@ -57,7 +57,7 @@ namespace Navigation_Drawer_App
 
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
-            bool valid = false;
+            bool valid = true;
             if (valid)
             {
                 MainWindow dashboard = new MainWindow();
