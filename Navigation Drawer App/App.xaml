@@ -1,0 +1,40 @@
+﻿<Application x:Class="Navigation_Drawer_App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Navigation_Drawer_App"
+             xmlns:views="clr-namespace:Navigation_Drawer_App.Views"
+             xmlns:viewmodels="clr-namespace:Navigation_Drawer_App.ViewModels"
+             StartupUri="LoginScreen.xaml">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+
+            
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <!--changing colours-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.amber.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            
+            
+            <DataTemplate DataType="{x:Type viewmodels:view0}">
+            <views:view0/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:view1}">
+            <views:view1/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:view2}">
+            <views:view2/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:view3}">
+                <views:view3/>
+            </DataTemplate>
+        </ResourceDictionary>
+
+
+    </Application.Resources>
+</Application>

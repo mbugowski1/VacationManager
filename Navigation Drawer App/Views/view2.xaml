@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Navigation_Drawer_App.Views.view2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Navigation_Drawer_App.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="510">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0"
+               Grid.ColumnSpan="3"
+               HorizontalAlignment="Center"
+               Grid.Row="0"
+               Content="Aktualne wnioski o urlop"
+               FontSize="32"/>
+        <ListView   Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalContentAlignment="Center">
+            <ListViewItem>
+                <Button Height="100"
+                        Width="200" Cursor="Hand">
+                    <TextBlock TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
+                </Button>
+            </ListViewItem>
+            <ListViewItem>
+                <Button Height="100"
+                        Width="200">
+                    <TextBlock TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
+                </Button>
+            </ListViewItem>
+            <ListViewItem>
+                <Button Height="100"
+                        Width="200">
+                    <TextBlock TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Text="Wniosek o urlop z dnia y "></TextBlock>
+                </Button>
+            </ListViewItem>
+            <ListViewItem>
+                <Button Height="100"
+                        Width="200">
+                    <TextBlock TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Text="Wniosek o urlop  z dnia y "></TextBlock>
+                </Button>
+            </ListViewItem>
+        </ListView>
+    </Grid>
+    
+</UserControl>
