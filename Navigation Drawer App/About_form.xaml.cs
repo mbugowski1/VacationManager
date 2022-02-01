@@ -10,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Navigation_Drawer_App.Views
+namespace Navigation_Drawer_App
 {
     /// <summary>
-    /// Logika interakcji dla klasy HomeView.xaml
+    /// Interaction logic for About_form.xaml
     /// </summary>
-    public partial class view3 : UserControl
+    public partial class About_form : Window
     {
-        public view3()
+        public About_form()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            About_form af=new About_form();
-            af.Show();
+            Close();
         }
     }
 }

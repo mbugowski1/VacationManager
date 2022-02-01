@@ -29,7 +29,8 @@
                     HorizontalContentAlignment="Center">
             <ListViewItem>
                 <Button Height="100"
-                        Width="200">
+                        Width="200" Click="Button_Click"
+                        >
                     <TextBox TextWrapping="Wrap"
                              TextAlignment="Center"
                              Text="Wniosek o urlop pracownika x z dnia y "></TextBox>

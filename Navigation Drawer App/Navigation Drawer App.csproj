@@ -23,7 +23,6 @@
     <None Remove="Assets\TgBtn_default.png" />
     <None Remove="Assets\tgBtn_MouseOver.png" />
     <None Remove="Background.jpg" />
-    <None Remove="Background2.jpg" />
     <None Remove="holiday_1.png" />
     <None Remove="holiday_3.png" />
     <None Remove="logo.png" />
@@ -46,12 +45,9 @@
     <Resource Include="Assets\holiday_3.png" />
     <Resource Include="Assets\holiday_4.png" />
     <Resource Include="Assets\holiday_5.png" />
-    <Resource Include="Assets\holiday_7.png" />
-    <Resource Include="Assets\holiday_6.png" />
     <Resource Include="Assets\TgBtn_default.png" />
     <Resource Include="Assets\tgBtn_MouseOver.png" />
     <Resource Include="Background.jpg" />
-    <Resource Include="Background2.jpg" />
     <Resource Include="holiday_1.png" />
     <Resource Include="holiday_3.png" />
     <Resource Include="logo.png" />
