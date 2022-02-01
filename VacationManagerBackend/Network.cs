@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using VacationManagerLibrary;
+using static VacationManagerLibrary.Message.Code;
 
 namespace VacationManagerBackend
 {
@@ -20,13 +21,11 @@ namespace VacationManagerBackend
         {
             this.ip = IPAddress.Parse(ip);
             this.port = port;
-            dataReceived += SetUp;
         }
         public Network(IPAddress ip, ushort port)
         {
             this.ip = ip;
             this.port = port;
-            dataReceived += SetUp;
         }
         public bool Connect()
         {
@@ -77,9 +76,5 @@ namespace VacationManagerBackend
             return Serializer.Deserialize<Message>(array.ToArray());
         }
         public void Close() => _socket.Close();
-        private void SetUp(object source, Message message)
-        {
-            
-        }
     }
 }

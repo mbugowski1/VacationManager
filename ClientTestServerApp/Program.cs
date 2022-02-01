@@ -11,6 +11,7 @@ namespace ClientTestServerApp
         public static void Main()
         {
             network = new Network("127.0.0.1", 1337);
+            network.dataReceived += SetUp;
             Console.WriteLine("0. Wyjdz");
             if (network.Connect())
                 Console.WriteLine("Polaczono");
@@ -29,11 +30,12 @@ namespace ClientTestServerApp
         }
         private static void Control(string text)
         {
-            string[] args = text.Split(' ');
-            string commandCase = args[0];
+            string[] raw = text.Split(' ');
+            string commandCase = raw[0];
             Message.Code code;
             Message message = new Message();
             byte[] messageToSend;
+            byte[][] credentials = new byte[2][];
             switch (commandCase)
             {
                 case "test":
@@ -41,11 +43,27 @@ namespace ClientTestServerApp
                     messageToSend = Serializer.Serialize(message);
                     network.SendMessage(messageToSend);
                     break;
+                case "check":
+                    message.Operation = Message.Code.CheckPass;
+                    credentials[0] = Encoding.UTF8.GetBytes(raw[1]);
+                    credentials[1] = Encoding.UTF8.GetBytes(raw[2]);
+                    message.Data = Serializer.Serialize(credentials);
+                    messageToSend = Serializer.Serialize(message);
+                    network.SendMessage(messageToSend);
+                    break;
             }
         }
-        public class TestClass
+        private static void SetUp(object source, Message message)
         {
-            public int Prop { get; set; }
+            switch (message.Operation)
+            {
+                case Test:
+                    Console.WriteLine(Encoding.UTF8.GetString(Serializer.Deserialize<byte[]>(message.Data)));
+                    break;
+                case CheckPass:
+                    Console.WriteLine((Serializer.Deserialize<bool>(message.Data)) ? "correct" : "incorrect");
+                    break;
+            }
         }
     }
 }

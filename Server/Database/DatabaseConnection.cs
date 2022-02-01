@@ -103,6 +103,10 @@ namespace VacationManagerServer.Database
                 {
                     Console.WriteLine("Couldn\'t connect to database");
                 }
+                catch(ArgumentNullException)
+                {
+                    return false;
+                }
                 finally
                 {
                     connection.Close();
