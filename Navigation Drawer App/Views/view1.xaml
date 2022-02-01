@@ -26,14 +26,19 @@
         <!--DATA SECTION-->
         <materialDesign:MaterialDateDisplay
          Grid.Column="1"
-         Grid.Row="0"/>
+         Grid.Row="0"
+         VerticalAlignment="Center"
+         HorizontalAlignment="Center"/>
         <TextBlock>
-            <Label x:Name="Dane" Grid.Column="0"
-               Grid.Row="0"
-               Content="Szymon Kordal"
-               Margin="20 20"
-               FontFamily="Roboto"
-               FontSize="28"
+            <Label x:Name="Dane" 
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Content="Szymon Kordal"
+                   Margin="20 30 0 0"
+                   FontFamily="Roboto"
+                   FontSize="28"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
                />
         </TextBlock>
         <!--How many days remain-->
@@ -45,7 +50,7 @@
         <Label Grid.Row="1"
                Grid.Column="1"
                Content="25"
-               HorizontalAlignment="Left"
+               HorizontalAlignment="Center"
                FontSize="28"/>
         <!--When to start and end holiday-->
         <Label Grid.Row="2"
@@ -90,10 +95,12 @@
 
             <RadioButton Content="Na żądanie"
                          FontSize="22"
-                         Grid.Row="0"/>
+                         Grid.Row="0"
+                         HorizontalAlignment="Center"/>
             <RadioButton Content="Normalny"
                          FontSize="22"
-                         Grid.Row="1"/>
+                         Grid.Row="1"
+                         HorizontalAlignment="Center"/>
         </Grid>
         
         <!--SEND BUTTON-->
