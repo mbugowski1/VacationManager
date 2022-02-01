@@ -43,7 +43,7 @@
                         Width="200" Click="Button_Click"
                         >
                     <TextBlock Style="{StaticResource textInButtonStyle}"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                             Text="Wniosek o urlop pracownika z dnia  "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
@@ -51,7 +51,7 @@
                         Width="200"
                         Cursor="Hand">
                     <TextBlock Style="{StaticResource textInButtonStyle}"
-                               Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                               ><Run Text="Wniosek o urlop pracownika z dnia"/><Run Language="pl-pl" Text=" "/><Run Text=" "/></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
@@ -59,7 +59,7 @@
                         Width="200"
                         Cursor="Hand">
                     <TextBlock Style="{StaticResource textInButtonStyle}"
-                               Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                               Text="Wniosek o urlop pracownika z dnia "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
