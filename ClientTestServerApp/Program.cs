@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text;
 using VacationManagerBackend;
+using VacationManagerLibrary;
 namespace ClientTestServerApp
 {
     public class Program
@@ -25,7 +27,8 @@ namespace ClientTestServerApp
                 }
                 network.SendMessage(message).Wait();
                 Console.WriteLine("Wyslano");
-            }
+            }*
+
         }
     }
 }

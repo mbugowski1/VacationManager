@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using VacationManagerLibrary;
 
 namespace VacationManagerServer
 {
@@ -41,12 +42,6 @@ namespace VacationManagerServer
             salt.CopyTo(result, 0);
             password.CopyTo(result, salt.Length);
             return result;
-        }
-        public static void AddUser(Database.Person user, byte[] password)
-        {
-            byte[]? salt = null;
-            password = HashPassword(password, ref salt);
-            Database.DatabaseConnection.CreateUser(user, password, salt);
         }
     }
 }

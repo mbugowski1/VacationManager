@@ -5,10 +5,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;FullDebug</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VacationManagerBackend\VacationManagerBackend.csproj" />
+    <ProjectReference Include="..\VacationManagerLibrary\VacationManagerLibrary.csproj" />
   </ItemGroup>
 
 </Project>

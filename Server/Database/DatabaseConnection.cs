@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using VacationManagerLibrary;
 
 namespace VacationManagerServer.Database
 {
     public static class DatabaseConnection
     {
         private static string ConnectionString { get => ConfigurationManager.ConnectionStrings["DB"].ConnectionString; }
-        public static void CreateUser(Person user, byte[] password, byte[] salt)
+        public static bool CreateUser(Person user, byte[] password)
         {
+            byte[]? salt = null;
+            password = Security.HashPassword(password, ref salt);
             string query = "INSERT INTO credentials VALUES (@Username, @Password);";
             string query2 = "INSERT INTO salts VALUES (@Username, @Salt)";
             string query3s = "SELECT positionID FROM positions WHERE position = @Name";
@@ -60,12 +63,14 @@ namespace VacationManagerServer.Database
                             throw new UserAlreadyExistsException(user.Username);
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Couldn\'t create account for user " + user.Username);
+                    return false;
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            return true;
         }
         public static bool CheckPassword(string username, byte[] password)
         {
@@ -139,7 +144,7 @@ namespace VacationManagerServer.Database
                 return person;
             }
         }
-        public static void SendEvent(VacationEvent vacationEvent)
+        public static bool SendEvent(VacationEvent vacationEvent)
         {
             string query = "INSERT INTO events(sender, recipient, start, end, code, type) VALUES (@Sender, @Recipient, @Start, @End, @Code, @Type)";
             using (var connection = new MySqlConnection(ConnectionString))
@@ -155,8 +160,8 @@ namespace VacationManagerServer.Database
                 command.Parameters["@Recipient"].Value = vacationEvent.Recipient;
                 command.Parameters["@Start"].Value = vacationEvent.Start;
                 command.Parameters["@End"].Value = vacationEvent.Stop;
-                command.Parameters["@Code"].Value = vacationEvent.Code;
-                command.Parameters["@Type"].Value = vacationEvent.Type;
+                command.Parameters["@Code"].Value = vacationEvent.CodeId;
+                command.Parameters["@Type"].Value = vacationEvent.TypeId;
 
                 try
                 {
@@ -173,15 +178,17 @@ namespace VacationManagerServer.Database
                         throw exception;
                     }
                     throw e;
+                    return false;
                 }
                 finally
                 {
                     connection.Close();
                 }
+                return true;
 
             }
         }
-        public static void ChangeEventCode(int id, int code)
+        public static bool ChangeEventCode(int id, int code)
         {
             string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
             string query = "UPDATE events SET code = @Code WHERE ID = @Id";
@@ -212,14 +219,16 @@ namespace VacationManagerServer.Database
                 catch(MySqlException e)
                 {
                     throw e;
+                    return false;
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            return true;
         }
-        public static void AddSupervisor(string worker, string supervisor)
+        public static bool AddSupervisor(string worker, string supervisor)
         {
             string query = "INSERT INTO supervisors VALUES (@Worker, @Supervisor)";
             string checkQuery = "SELECT EXISTS(SELECT username FROM data WHERE username = @Worker)";
@@ -249,14 +258,16 @@ namespace VacationManagerServer.Database
                 catch(MySqlException e)
                 {
                     throw e;
+                    return false;
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            return true;
         }
-        public static void RemoveSupervisor(string worker, string supervisor)
+        public static bool RemoveSupervisor(string worker, string supervisor)
         {
             string query = "DELETE FROM supervisors WHERE worker = @Worker AND supervisor = @Super";
             using(var connection = new MySqlConnection(ConnectionString))
@@ -276,12 +287,14 @@ namespace VacationManagerServer.Database
                 catch(MySqlException e)
                 {
                     throw e;
+                    return false;
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            return true;
         }
         public static List<VacationEvent> GetEvents(string worker, bool supervisor = false)
         {

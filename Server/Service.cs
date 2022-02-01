@@ -34,6 +34,7 @@ namespace VacationManagerServer
         }
         private void Run()
         {
+            _network.dataReceived += _network.NetworkReaction;
             _network.Open();
         }
     }
