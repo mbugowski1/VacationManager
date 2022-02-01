@@ -156,6 +156,22 @@ namespace VacationManagerServer
                         Database.DatabaseConnection.GetEvents(_clients[client]).ForEach(x => message += x + "\n");
                         SendMessage(client, message);
                         break;
+                    case "getworkers":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        if (_clients[client] == String.Empty)
+                            throw new NetworkAccessForbiddenException(client);
+                        Database.DatabaseConnection.GetWorkers(_clients[client]).ForEach(x => message += x + "\n");
+                        SendMessage(client, message);
+                        break;
+                    case "getsuper":
+                        if (arguments.Length != 1)
+                            throw new WrongDataException("Expected 1 argument - got " + arguments.Length);
+                        if (_clients[client] == String.Empty)
+                            throw new NetworkAccessForbiddenException(client);
+                        Database.DatabaseConnection.GetWorkers(_clients[client], true).ForEach(x => message += x + "\n");
+                        SendMessage(client, message);
+                        break;
                     case "exit":
                         if (arguments.Length != 1)
                             throw new WrongDataException("Expected 1 argument - got " + arguments.Length);

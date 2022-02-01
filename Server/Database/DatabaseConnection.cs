@@ -324,5 +324,41 @@ namespace VacationManagerServer.Database
                 return events;
             }
         }
+        public static List<string> GetWorkers(string worker, bool supervisors = false)
+        {
+            var workers = new List<string>();
+            string query;
+            if (supervisors)
+                query = "SELECT supervisor FROM supervisors WHERE worker = @Worker";
+            else
+                query = "SELECT worker FROM supervisors WHERE supervisor = @Worker";
+            using(var connection = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@Worker", MySqlDbType.VarChar, 50);
+                command.Parameters["@Worker"].Value = worker;
+
+                try
+                {
+                    connection.Open();
+                    using(var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            workers.Add((string)reader[0]);
+                        }
+                    }
+                }
+                catch(MySqlException e)
+                {
+                    throw e;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return workers;
+        }
     }
 }
