@@ -9,7 +9,7 @@
         Title="Informacja o urlopie" Height="450" Width="650"
         Topmost="True"
         ResizeMode="NoResize">
-
+   
     <Grid>
         
         <Grid.Background>

@@ -6,7 +6,18 @@
              xmlns:local="clr-namespace:Navigation_Drawer_App.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="textInButtonStyle" TargetType="TextBlock">
+
+            <Setter Property="TextWrapping"
+                    Value="Wrap"/>
+            <Setter Property="TextAlignment"
+                    Value="Center"/>
+
+        </Style>
+    </UserControl.Resources>
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="300"/>
@@ -29,35 +40,34 @@
                     HorizontalContentAlignment="Center">
             <ListViewItem>
                 <Button Height="100"
-                        Width="200" Click="Button_Click"
+                        Width="200"
+                        Cursor="Hand" Click="Button_Click"
                         >
-                    <TextBlock TextWrapping="Wrap"
-                             TextAlignment="Center"
+                    <TextBlock Style="{StaticResource textInButtonStyle}"
                              Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
-                        Width="200">
-                    <TextBlock TextWrapping="Wrap"
-                             TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                        Width="200"
+                        Cursor="Hand">
+                    <TextBlock Style="{StaticResource textInButtonStyle}"
+                               Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
-                        Width="200">
-                    <TextBlock TextWrapping="Wrap"
-                             TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                        Width="200"
+                        Cursor="Hand">
+                    <TextBlock Style="{StaticResource textInButtonStyle}"
+                               Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
                 </Button>
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
-                        Width="200">
-                    <TextBlock TextWrapping="Wrap"
-                             TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBlock>
+                        Width="200"
+                        Cursor="Hand">
+                    
                 </Button>
             </ListViewItem>
         </ListView>

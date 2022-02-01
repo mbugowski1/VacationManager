@@ -6,8 +6,11 @@
              xmlns:viewmodels="clr-namespace:Navigation_Drawer_App.ViewModels"
              StartupUri="LoginScreen.xaml">
     <Application.Resources>
-
+        
         <ResourceDictionary>
+
+            
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -15,8 +18,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.amber.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-        <DataTemplate DataType="{x:Type viewmodels:view0}">
+            
+            
+            
+            <DataTemplate DataType="{x:Type viewmodels:view0}">
             <views:view0/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:view1}">
