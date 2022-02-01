@@ -82,7 +82,7 @@
                          materialDesign:HintAssist.Hint="Enter Username"
                          BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesignDivider}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" Cursor="IBeam"/>
 
                 <PasswordBox Margin="0 20 0 0 "
                              x:Name="txtPassword"
@@ -91,7 +91,7 @@
                              materialDesign:HintAssist.Hint="Enter Password"
                              BorderThickness="2"
                              BorderBrush="{DynamicResource MaterialDesignDivider}"
-                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}" Cursor="IBeam"/>
 
                 <Button Margin="0 20 0 0 "
                         x:Name="loginBtn"
@@ -102,7 +102,7 @@
                         materialDesign:ButtonAssist.CornerRadius="10"
                         FontSize="18"
                         Content="LOG IN" 
-                        Click="btnSubmit_click"/>
+                        Click="btnSubmit_click" Cursor="Hand"/>
 
                 <Button Margin="0 20 0 0 "
                         x:Name="signupBtn"

@@ -372,7 +372,7 @@
                                     <Image Source="Assets/holiday_1.png" 
                                        Height="40"
                                        />
-                                    <TextBlock Text="Home"
+                                    <TextBlock Text="Dodaj wniosek"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 

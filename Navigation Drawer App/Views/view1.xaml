@@ -4,10 +4,110 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Navigation_Drawer_App.Views"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="White">
+             d:DesignHeight="450" d:DesignWidth="510"
+             Background="AntiqueWhite">
     <Grid>
-        <Label FontSize="40" HorizontalAlignment="Center" Content="view1"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <!--DATA SECTION-->
+        <materialDesign:MaterialDateDisplay
+         Grid.Column="1"
+         Grid.Row="0"/>
+        <TextBlock>
+            <Label x:Name="Dane" Grid.Column="0"
+               Grid.Row="0"
+               Content="Szymon Kordal"
+               Margin="20 20"
+               FontFamily="Roboto"
+               FontSize="28"
+               />
+        </TextBlock>
+        <!--How many days remain-->
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="Liczba dni: "
+               HorizontalAlignment="Right"
+               FontSize="28"/>
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Content="25"
+               HorizontalAlignment="Left"
+               FontSize="28"/>
+        <!--When to start and end holiday-->
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="Start urlopu:"
+               HorizontalAlignment="Right"
+               FontSize="28"/>
+        <DatePicker Grid.Column="1"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Margin="0,5,0,0"
+                    Width="120"
+                    Text="s"
+                    VerticalAlignment="Top"/>
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="Koniec urlopu:"
+               HorizontalAlignment="Right"
+               FontSize="28"/>
+        <DatePicker Grid.Column="1"
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    Margin="0,5,0,0"
+                    Width="120"
+                    Text="s"
+                    VerticalAlignment="Top"/>
+        
+        <!--Pick type of holiday-->
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="Typ urlopu:"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               FontSize="28"/>
+        
+        <Grid Grid.Column="1"
+              Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+
+            <RadioButton Content="Na żądanie"
+                         FontSize="22"
+                         Grid.Row="0"/>
+            <RadioButton Content="Normalny"
+                         FontSize="22"
+                         Grid.Row="1"/>
+        </Grid>
+        
+        <!--SEND BUTTON-->
+        <Button Grid.ColumnSpan="2"
+                Grid.Row="5"
+                Margin="0 0 0 0 "
+                x:Name="loginBtn"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Height="53"
+                Width="300"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                FontSize="18"
+                Content="WYŚLIJ" Cursor="Hand" />
+
     </Grid>
 </UserControl>
