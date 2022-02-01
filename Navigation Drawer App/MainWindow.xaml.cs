@@ -34,17 +34,17 @@ namespace Navigation_Drawer_App
 
             if(Tg_btn.IsChecked== true)
             {
-                tt_home.Visibility = Visibility.Collapsed;
-                tt_contacts.Visibility = Visibility.Collapsed;
-                tt_messages.Visibility = Visibility.Collapsed;
+                tt_add.Visibility = Visibility.Collapsed;
+                tt_my_holidays.Visibility = Visibility.Collapsed;
+                tt_holidays_to_me.Visibility = Visibility.Collapsed;
                 tt_settings.Visibility = Visibility.Collapsed;
                 tt_logout.Visibility = Visibility.Collapsed;
             }
             else
             {
-                tt_home.Visibility = Visibility.Visible;
-                tt_contacts.Visibility = Visibility.Visible;
-                tt_messages.Visibility = Visibility.Visible;
+                tt_add.Visibility = Visibility.Visible;
+                tt_my_holidays.Visibility = Visibility.Visible;
+                tt_holidays_to_me.Visibility = Visibility.Visible;
                 tt_settings.Visibility = Visibility.Visible;
                 tt_logout.Visibility = Visibility.Visible;
             }

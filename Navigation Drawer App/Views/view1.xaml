@@ -7,8 +7,7 @@
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="510"
-             Background="AntiqueWhite">
+             d:DesignHeight="450" d:DesignWidth="510">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -29,18 +28,14 @@
          Grid.Row="0"
          VerticalAlignment="Center"
          HorizontalAlignment="Center"/>
-        <TextBlock>
             <Label x:Name="Dane" 
                    Grid.Column="0"
                    Grid.Row="0"
                    Content="Szymon Kordal"
-                   Margin="20 30 0 0"
-                   FontFamily="Roboto"
                    FontSize="28"
-                   VerticalAlignment="Center"
                    HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
                />
-        </TextBlock>
         <!--How many days remain-->
         <Label Grid.Row="1"
                Grid.Column="0"

@@ -10,7 +10,8 @@
         Width="800"
         Topmost="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
 
     <Window.Resources>
         <!--//Toggle Button style template-->
@@ -43,9 +44,9 @@
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="100" />
             <Setter Property="Margin" Value="20,0,0,0" />
-            <Setter Property="Background" Value="#4A5668" />
+            <Setter Property="Background" Value="#cbf080" />
             <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="Fonts/Lato-regular.ttf #Lato" />
             <Setter Property="PlacementRectangle" Value="60,0,0,0" />
             <Setter Property="HorizontalOffset" Value="15" />
@@ -250,7 +251,7 @@
             <Grid   x:Name="nav_pnl"
                     HorizontalAlignment="Left"
                     Width="65"
-                    Background="#2E333A"
+                    Background="#cbf080"
                     >
                 <StackPanel x:Name="st_pnl">
                     <!--Grid for menu toggle btn-->
@@ -373,7 +374,7 @@
                                        Height="40"
                                        />
                                     <TextBlock Text="Dodaj wniosek"
-                                           Margin="25,0,0,0"
+                                           Margin="30,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
                                 </StackPanel>
@@ -383,8 +384,8 @@
 
                             <ListViewItem.ToolTip>
 
-                                <ToolTip x:Name="tt_home"
-                                         Content="Home"
+                                <ToolTip x:Name="tt_add"
+                                         Content="Dodaj wniosek"
                                          Style="{StaticResource tt_style}"/>
 
 
@@ -409,7 +410,7 @@
                                        Height="40"
                                        />
                                     <TextBlock Text="Moje wnioski"
-                                           Margin="40,0,0,0"
+                                           Margin="30,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
                                 </StackPanel>
@@ -418,8 +419,8 @@
 
                             <ListViewItem.ToolTip>
 
-                                <ToolTip x:Name="tt_contacts"
-                                         Content="Contacts"
+                                <ToolTip x:Name="tt_my_holidays"
+                                         Content="Moje wnioski"
                                          Style="{StaticResource tt_style}"/>
 
 
@@ -443,7 +444,7 @@
                                        Height="39"
                                            />
                                     <TextBlock Text="Do mnie"
-                                           Margin="40,0,0,0"
+                                           Margin="30,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
                                 </StackPanel>
@@ -453,8 +454,8 @@
 
                             <ListViewItem.ToolTip>
 
-                                <ToolTip x:Name="tt_messages"
-                                         Content="Messages"
+                                <ToolTip x:Name="tt_holidays_to_me"
+                                         Content="Do mnie"
                                          Style="{StaticResource tt_style}"/>
 
 
@@ -467,17 +468,17 @@
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
                             <Button x:Name="button4"
                                 BorderThickness="0"
-                                Height="40"
+                                Height="50"
                                 Background="Transparent"
                                 Command="{Binding UpdateViewCommand}" CommandParameter="view4" >
                                 <StackPanel Orientation="Horizontal"
                                         Width="230"
                                         Height="50"
                                         Margin=" -16 -10 0 0 ">
-                                    <Image Source="Assets/holiday_1.png" 
-                                       Height="40" />
+                                    <Image Source="Assets/holiday_4.png" 
+                                       Height="37" />
                                     <TextBlock Text="Ustawienia"
-                                           Margin="40,0,0,0"
+                                           Margin="30,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
                                 </StackPanel>
@@ -489,7 +490,7 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_settings"
-                                         Content="Settings"
+                                         Content="Ustawienia"
                                          Style="{StaticResource tt_style}"/>
 
 
@@ -503,7 +504,7 @@
                             <Button x:Name="button5"
                                 BorderThickness="0"
                                 Background="Transparent"
-                                Height="40"
+                                Height="50"
                                 Click="btnLogout_click"
                                 Cursor="Hand">
                                 <!--Command="{Binding UpdateViewCommand}" CommandParameter="view5" Cursor="Hand"--> 
@@ -512,10 +513,10 @@
                                         Width="230"
                                         Height="50"
                                         Margin="-16 -10 0 0">
-                                    <Image Source="Assets/holiday_1.png" 
-                                       Height="40" />
+                                    <Image Source="Assets/holiday_5.png" 
+                                       Height="37" />
                                     <TextBlock Text="Wyloguj"
-                                           Margin="40,0,0,0"
+                                           Margin="30,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
                                 </StackPanel>
@@ -526,7 +527,7 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_logout"
-                                         Content="Logout"
+                                         Content="Wyloguj"
                                          Style="{StaticResource tt_style}"/>
 
 
@@ -574,11 +575,11 @@
 
                                                     <Setter Property="Background"
                                                             TargetName="Bd"
-                                                            Value="#404D5B" />
+                                                            Value="#cbf080" />
 
                                                     <Setter Property="BorderBrush"
                                                             TargetName="Bd"
-                                                            Value="#404D5B" />
+                                                            Value="#cbf080" />
 
 
                                                 </MultiTrigger>
