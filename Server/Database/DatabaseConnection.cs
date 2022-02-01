@@ -141,46 +141,37 @@ namespace VacationManagerServer.Database
         }
         public static void SendEvent(VacationEvent vacationEvent)
         {
-            string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
-            string checkQuery2 = "SELECT EXISTS(SELECT username FROM data WHERE username = @Recipient)";
-            string query = "INSERT INTO events(sender, recipient, start, end, code) VALUES (@Sender, @Recipient, @Start, @End, @Code)";
+            string query = "INSERT INTO events(sender, recipient, start, end, code, type) VALUES (@Sender, @Recipient, @Start, @End, @Code, @Type)";
             using (var connection = new MySqlConnection(ConnectionString))
             {
-                var checkCommand = new MySqlCommand(checkQuery, connection);
-                checkCommand.Parameters.Add("@Code", MySqlDbType.Int32);
-                checkCommand.Parameters["@Code"].Value = vacationEvent.Code;
-
-                var checkCommand2 = new MySqlCommand(checkQuery2, connection);
-                checkCommand2.Parameters.Add("@Recipient", MySqlDbType.VarChar, 50);
-                checkCommand2.Parameters["@Recipient"].Value = vacationEvent.Recipient;
-
                 var command = new MySqlCommand(query, connection);
                 command.Parameters.Add("@Sender", MySqlDbType.VarChar, 50);
                 command.Parameters.Add("@Recipient", MySqlDbType.VarChar, 50);
                 command.Parameters.Add("@Start", MySqlDbType.Date);
                 command.Parameters.Add("@End", MySqlDbType.Date);
                 command.Parameters.Add("@Code", MySqlDbType.Int32);
+                command.Parameters.Add("@Type", MySqlDbType.Int32);
                 command.Parameters["@Sender"].Value = vacationEvent.Sender;
                 command.Parameters["@Recipient"].Value = vacationEvent.Recipient;
                 command.Parameters["@Start"].Value = vacationEvent.Start;
                 command.Parameters["@End"].Value = vacationEvent.Stop;
                 command.Parameters["@Code"].Value = vacationEvent.Code;
+                command.Parameters["@Type"].Value = vacationEvent.Type;
 
                 try
                 {
                     connection.Open();
-                    bool codeExists = Convert.ToBoolean(checkCommand.ExecuteScalar());
-                    if (!codeExists)
-                        throw new CodeDoesNotExistException(vacationEvent.Code);
-                    bool userExists = Convert.ToBoolean(checkCommand2.ExecuteScalar());
-                    if (!userExists)
-                        throw new UserDoesNotExistException(vacationEvent.Recipient);
                     command.ExecuteNonQuery();
                     Console.WriteLine("Added new event");
                     Console.WriteLine(vacationEvent.ToString());
                 }
                 catch(MySqlException e)
                 {
+                    if (e.Number == 1452)
+                    {
+                        ArgumentException exception = new ArgumentException(e.Message);
+                        throw exception;
+                    }
                     throw e;
                 }
                 finally
@@ -295,9 +286,10 @@ namespace VacationManagerServer.Database
         public static List<VacationEvent> GetEvents(string worker, bool supervisor = false)
         {
             var events = new List<VacationEvent>();
-            string query = "SELECT ID, sender, recipient, start, end, code, description " +
+            string query = "SELECT ID, sender, recipient, start, end, code, description, events.type, eventtypes.type as typedesc " +
                 "FROM events LEFT JOIN supervisors ON sender = worker AND recipient = supervisor " +
-                "LEFT JOIN codes ON codeID = code WHERE ";
+                "LEFT JOIN codes ON codeID = code " +
+                "LEFT JOIN eventtypes ON events.type = eventtypes.typeID WHERE ";
             if (supervisor)
                 query += "supervisor = @Worker";
             else
@@ -316,7 +308,7 @@ namespace VacationManagerServer.Database
                         while(reader.Read())
                         {
                             var newEvent = new VacationEvent((string)reader["sender"], (string)reader["recipient"],
-                                (DateTime)reader["start"], (DateTime)reader["end"], (int)reader["code"], (string)reader["description"]);
+                                (DateTime)reader["start"], (DateTime)reader["end"], (int)reader["code"], (int)reader["type"], (int)reader["ID"], (string)reader["description"], (string)reader["typedesc"]);
                             events.Add(newEvent);
                         }
                     }
