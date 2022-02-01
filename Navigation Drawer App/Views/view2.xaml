@@ -33,7 +33,7 @@
                         Width="200" Cursor="Hand">
                     <TextBox TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBox>
                 </Button>
             </ListViewItem>
             <ListViewItem>
@@ -41,7 +41,7 @@
                         Width="200">
                     <TextBox TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBox>
                 </Button>
             </ListViewItem>
             <ListViewItem>
@@ -49,7 +49,7 @@
                         Width="200">
                     <TextBox TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBox>
+                             Text="Wniosek o urlop z dnia y "></TextBox>
                 </Button>
             </ListViewItem>
             <ListViewItem>
@@ -57,7 +57,7 @@
                         Width="200">
                     <TextBox TextWrapping="Wrap"
                              TextAlignment="Center"
-                             Text="Wniosek o urlop pracownika x z dnia y "></TextBox>
+                             Text="Wniosek o urlop  z dnia y "></TextBox>
                 </Button>
             </ListViewItem>
         </ListView>
