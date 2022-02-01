@@ -1,0 +1,601 @@
+﻿<Window x:Class="Navigation_Drawer_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Navigation_Drawer_App"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="800"
+        Topmost="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!--//Toggle Button style template-->
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="Assets/tgBtn_MouseOver.png"/>
+        <!--Text font style-->
+
+        <Style x:Key="font_style" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="Fonts/Lato-Regular #Lato"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="FontSize"
+                    Value="20"/>
+
+
+        </Style>
+
+        <!--Tooltip Style Template-->
+
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Margin" Value="20,0,0,0" />
+            <Setter Property="Background" Value="#4A5668" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Fonts/Lato-regular.ttf #Lato" />
+            <Setter Property="PlacementRectangle" Value="60,0,0,0" />
+            <Setter Property="HorizontalOffset" Value="15" />
+            <Setter Property="VerticalOffset" Value="6" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+
+
+        </Style>
+
+        <!--//App close button style template-->
+
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="Assets/closeBtn_MouseOver.png"/>
+
+        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource CloseBtn_MouseOver}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="Menu_btn" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="Transparent"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border x:Name="border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+
+
+            </Setter>
+
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid Background="black">
+
+            <!--// Background image-->
+
+            <Grid x:Name="BG" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
+
+                <Grid.Background>
+
+                    <ImageBrush x:Name="img_bg"
+                                ImageSource="Assets/Background.jpg"
+                                Stretch="None"/>
+
+
+
+                </Grid.Background>
+
+            </Grid>
+
+            <!--//app Close btn-->
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ContentControl Grid.Row="2"
+                                Grid.Column="0"
+                                Content="{Binding SelectedViewModel}"
+                                Margin="65 0 0 0"/>
+
+                <Button x:Name="xn"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Height="40"
+                        Width="40"
+                        BorderThickness="0"
+                        Style="{StaticResource Close_btn}" Click="CloseBtn_Click">
+
+                    <Button.Background>
+
+                        <ImageBrush ImageSource="Assets/closeBtn_default.png"/>
+
+                    </Button.Background>
+                </Button>
+            </Grid>
+
+
+
+
+            <!--//Navigation panel//-->
+
+            <Grid   x:Name="nav_pnl"
+                    HorizontalAlignment="Left"
+                    Width="65"
+                    Background="#2E333A"
+                    >
+                <StackPanel x:Name="st_pnl">
+                    <!--Grid for menu toggle btn-->
+                    <Grid Height="90">
+
+                        <!--//Menu title text//-->
+                        <TextBlock  Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="73,-20,0,0"
+                                    Text="M E N U"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource font_style}">
+
+                        <!--Shadow effect-->
+
+                            <TextBlock.Effect>
+
+                                <DropShadowEffect   BlurRadius="10"
+                                                        ShadowDepth="1"
+                                                        Direction="-90"
+                                                        Color="White"/>
+
+
+                            </TextBlock.Effect>
+                        </TextBlock>
+
+
+
+                        <ToggleButton   x:Name="Tg_btn"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="18,-20,0,0"
+                                        Height="30"
+                                        Width="30"
+                                        BorderThickness="0"
+                                        Style="{StaticResource tb_style}">
+
+                            <!--Toggle btn default bkg image-->
+                            <ToggleButton.Background>
+
+                                <ImageBrush ImageSource="Assets/TgBtn_default.png"/>
+
+                            </ToggleButton.Background>
+                            <!--checked/unchecked-->
+                            <ToggleButton.Triggers>
+
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+
+                                    <BeginStoryboard>
+
+                                        <Storyboard x:Name="HideStackPanel">
+
+                                            <DoubleAnimation
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="230" To="65"
+                                                Duration="0:0:0.2">
+
+                                            </DoubleAnimation>
+
+                                        </Storyboard>
+
+                                    </BeginStoryboard>
+
+                                </EventTrigger>
+
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+
+                                    <BeginStoryboard>
+
+                                        <Storyboard x:Name="ShowStackPanel">
+
+                                            <DoubleAnimation
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="65" To="230"
+                                                Duration="0:0:0.2">
+
+                                            </DoubleAnimation>
+
+                                        </Storyboard>
+
+                                    </BeginStoryboard>
+
+                                </EventTrigger>
+
+
+                            </ToggleButton.Triggers>
+
+                        </ToggleButton>
+
+                    </Grid>
+
+                    <ListView   x:Name="LV"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
+                            <Button x:Name="button"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Height="40"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="view1" >
+                                <StackPanel Orientation="Horizontal"
+                                        Width="230"
+                                        Height="50"
+                                        Margin="-16 -10 0 0"
+                                            >
+                                    <Image Source="Assets/holiday_1.png" 
+                                       Height="40"
+                                       />
+                                    <TextBlock Text="Home"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                                </StackPanel>
+                            </Button>
+
+                            <!--Tooltip-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_home"
+                                         Content="Home"
+                                         Style="{StaticResource tt_style}"/>
+
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--CONTACTS-->
+
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
+                            <Button x:Name="button2"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Height="40"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="view2" >
+                                <StackPanel Orientation="Horizontal"
+                                        Width="230"
+                                        Height="50"
+                                        Margin="-16 -10 0 0">
+                                    <Image Source="Assets/holiday_2.png" 
+                                       Height="40"
+                                       />
+                                    <TextBlock Text="Contacts"
+                                           Margin="40,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                                </StackPanel>
+                            </Button>
+                            <!--Tooltip-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_contacts"
+                                         Content="Contacts"
+                                         Style="{StaticResource tt_style}"/>
+
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--3rd-->
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
+                            <Button x:Name="button3"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Height="40"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="view3" >
+                                <StackPanel Orientation="Horizontal"
+                                        Width="230"
+                                        Height="50"
+                                        Margin="-16 -10 0 0">
+                                    <Image Source="Assets/holiday_3.png" 
+                                       Height="39"
+                                           />
+                                    <TextBlock Text="Messages"
+                                           Margin="40,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                                </StackPanel>
+                            </Button>
+
+                            <!--Tooltip-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_messages"
+                                         Content="Messages"
+                                         Style="{StaticResource tt_style}"/>
+
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--//settings-->
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
+                            <Button x:Name="button4"
+                                BorderThickness="0"
+                                Height="40"
+                                Background="Transparent"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="view4" >
+                                <StackPanel Orientation="Horizontal"
+                                        Width="230"
+                                        Height="50"
+                                        Margin=" -16 -10 0 0 ">
+                                    <Image Source="Assets/holiday_1.png" 
+                                       Height="40" />
+                                    <TextBlock Text="Settings"
+                                           Margin="40,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                                </StackPanel>
+                            </Button>
+
+
+                            <!--Tooltip-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_settings"
+                                         Content="Settings"
+                                         Style="{StaticResource tt_style}"/>
+
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--//logout-->
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter">
+                            <Button x:Name="button5"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Height="40"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="view5" >
+                                <StackPanel Orientation="Horizontal"
+                                        Width="230"
+                                        Height="50"
+                                        Margin="-16 -10 0 0">
+                                    <Image Source="Assets/holiday_1.png" 
+                                       Height="40" />
+                                    <TextBlock Text="Log out"
+                                           Margin="40,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                                </StackPanel>
+                            </Button>
+
+                            <!--Tooltip-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_logout"
+                                         Content="Logout"
+                                         Style="{StaticResource tt_style}"/>
+
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+
+                        <!--//Listview items style template-->
+
+
+                        <ListView.ItemContainerStyle>
+
+                            <Style TargetType="ListViewItem">
+
+                                <Setter Property="Template">
+
+                                    <Setter.Value>
+
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                            <Border x:Name="Bd"
+                                                        Height="50"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Background="{TemplateBinding Background}"
+                                                        Padding="{TemplateBinding Padding}"
+                                                        SnapsToDevicePixels="True">
+
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                      VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+
+                                                <MultiTrigger>
+
+                                                    <MultiTrigger.Conditions>
+
+                                                        <Condition Property="IsMouseOver" Value="True" />
+
+                                                    </MultiTrigger.Conditions>
+
+                                                    <Setter Property="Background"
+                                                            TargetName="Bd"
+                                                            Value="#404D5B" />
+
+                                                    <Setter Property="BorderBrush"
+                                                            TargetName="Bd"
+                                                            Value="#404D5B" />
+
+
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+
+                                        </ControlTemplate>
+
+
+
+                                    </Setter.Value>
+
+                                </Setter>
+
+                            </Style>
+
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
