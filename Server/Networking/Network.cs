@@ -5,14 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+using VacationManagerLibrary;
 
 namespace VacationManagerServer
 {
-    public class Network
+    public partial class Network
     {
-        public EventHandler<DataArgs>? dataReceived;
-        public EventHandler<DataArgs>? dataSent;
+        public EventHandler<Message>? dataReceived;
+        public EventHandler<Message>? dataSent;
 
         private readonly Dictionary<Socket, string> _clients = new();
         private readonly Socket _socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -29,7 +29,6 @@ namespace VacationManagerServer
         {
             Socket client = _socket.EndAccept(AR);
             _clients.Add(client, String.Empty);
-            dataReceived += DataReceived;
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             Console.WriteLine("Client connected");
             _socket.BeginAccept(AcceptCallback, null);
@@ -49,41 +48,23 @@ namespace VacationManagerServer
                 _clients.Remove(client);
                 return;
             }
-            string recText = Encoding.UTF8.GetString(_buffer, 0, received);
-            DataArgs data = new(_clients[client], recText);
+            ArraySegment<byte> sending = new(_buffer, 0, received);
+            Message data = Serializer.Deserialize<Message>(sending.ToArray());
             dataReceived?.Invoke(client, data);
             client.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
-            //client.Close();
-            //_clients.Remove(client);
         }
-        private void DataReceived(object source, DataArgs args)
+        public void SendMessage(Socket client, Message.Code code, string message)
         {
-            Socket client = (Socket)source;
-            if (args.Data == "test") SendMessage(client, "test echo");
-            else if(_clients[client] == String.Empty)
-            {
-                string[] credentials = args.Data.Split(' ');
-                if (credentials.Length != 2)
-                    throw new NetworkAccessForbiddenException("Client provided wrong number of arguments");
-                _clients[client] = credentials[0];
-                if (Security.Auth(credentials[0], Encoding.UTF8.GetBytes(credentials[1])))
-                    SendMessage(client, "correct credentials");
-                else
-                    SendMessage(client, "wrong credentials");
-            }
-            else
-            {
-                throw new WrongDataException();
-            }
-        }
-
-        public void SendMessage(Socket client, string message)
-        {
-            if (client == null) throw new SocketException();
             byte[] text = Encoding.UTF8.GetBytes(message);
-            DataArgs data = new DataArgs(_clients[client], message);
+            SendMessage(client, code, text);
+        }
+        public void SendMessage<T>(Socket client, Message.Code code, T message)
+        {
+            Message data = new Message();
+            data.Data = Serializer.Serialize(message);
+            data.Operation = code;
             dataSent?.Invoke(client, data);
-            client.Send(text);
+            client.Send(Serializer.Serialize(data));
         }
     }
 }

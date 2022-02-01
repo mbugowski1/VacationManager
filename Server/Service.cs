@@ -13,6 +13,7 @@ namespace VacationManagerServer
 {
     public class Service
     {
+        internal static Random rng = new ();
         private volatile bool _working;
         public bool Working
         {
@@ -33,6 +34,7 @@ namespace VacationManagerServer
         }
         private void Run()
         {
+            _network.dataReceived += _network.NetworkReaction;
             _network.Open();
         }
     }
