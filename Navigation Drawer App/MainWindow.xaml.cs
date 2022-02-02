@@ -21,10 +21,10 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class MainWindow : Window
     {
+        public LoginScreen LoginScreen { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-
             DataContext = new MainViewModel();
         }
 
@@ -55,13 +55,13 @@ namespace Navigation_Drawer_App
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
+            LoginScreen.Close();
             Close();
         }
 
         private void btnLogout_click(object sender, RoutedEventArgs e)
         {
-            LoginScreen loginScreen = new LoginScreen();
-            loginScreen.Show();
+            LoginScreen.Visibility = Visibility.Visible;
             this.Close();
         }
     }

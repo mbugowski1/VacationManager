@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VacationManagerBackend\VacationManagerBackend.csproj" />
+    <ProjectReference Include="..\VacationManagerLibrary\VacationManagerLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\a.jpg" />
     <Resource Include="Assets\closeBtn_MouseOver.png" />
     <Resource Include="Assets\holiday_1.png" />

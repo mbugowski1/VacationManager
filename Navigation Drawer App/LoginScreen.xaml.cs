@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VacationManagerBackend;
+using VacationManagerLibrary;
 
 namespace Navigation_Drawer_App
 {
@@ -20,9 +24,13 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class LoginScreen : Window
     {
+        public Network _network = new Network("127.0.0.1", 1337);
+        private MainWindow dashboard = new MainWindow();
         public LoginScreen()
         {
             InitializeComponent();
+            _network.dataReceived += Login;
+            _network.Connect();
         }
         public bool isDarkTheme { get; set; }
 
@@ -57,16 +65,41 @@ namespace Navigation_Drawer_App
 
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
-            bool valid = true;
-            if (valid)
+            string[] cred = new string[2];
+            cred[0] = "szef";
+            cred[1] = "root";
+            var message = new Message();
+            message.Operation = Message.Code.CheckPass;
+            message.Data = Serializer.Serialize(cred);
+            _network.SendMessage(Serializer.Serialize(message));
+            /*bool result = true;
+            if (result)
             {
-                MainWindow dashboard = new MainWindow();
                 dashboard.Show();
-                this.Close();
+                this.Visibility = Visibility.Collapsed;
             }
             else
             {
                 IncorrectText.Visibility = Visibility.Visible;
+            }*/
+        }
+        private void Login(object source, Message message)
+        {
+            if(message.Operation == Message.Code.CheckPass)
+            {
+                bool result = Serializer.Deserialize<bool>(message.Data);
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    if (result)
+                    {
+                        dashboard.Show();
+                        this.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        IncorrectText.Visibility = Visibility.Visible;
+                    }
+                });
             }
         }
     }
