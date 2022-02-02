@@ -18,8 +18,6 @@ namespace Navigation_Drawer_App.Commands
             this.viewModel = viewModel;
         }
 
-
-
         public event EventHandler? CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -27,9 +25,8 @@ namespace Navigation_Drawer_App.Commands
             return true;
         }
 
-        public void Execute(object parameter)//if executed -enum?
+        public void Execute(object parameter)//if executed
         {
-            Console.WriteLine("test");
             if (parameter.ToString() == "view1")
             {
                 viewModel.SelectedViewModel = new view1();

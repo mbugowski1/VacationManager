@@ -463,7 +463,7 @@
                         </ListViewItem>
 
                         <!--//settings-->
-                       
+
 
                         <!--//logout-->
                         <ListViewItem HorizontalAlignment="Left"
@@ -474,8 +474,8 @@
                                 Height="50"
                                 Click="btnLogout_click"
                                 Cursor="Hand">
-                                <!--Command="{Binding UpdateViewCommand}" CommandParameter="view5" Cursor="Hand"--> 
-                                
+                                <!--Command="{Binding UpdateViewCommand}" CommandParameter="view5" Cursor="Hand"-->
+
                                 <StackPanel Orientation="Horizontal"
                                         Width="230"
                                         Height="50"

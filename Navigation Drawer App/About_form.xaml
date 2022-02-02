@@ -9,9 +9,9 @@
         Title="Informacja o urlopie" Height="450" Width="650"
         Topmost="True"
         ResizeMode="NoResize">
-   
+
     <Grid>
-        
+
         <Grid.Background>
 
             <ImageBrush x:Name="img_bg"
@@ -19,7 +19,7 @@
                                 Stretch="Fill"/>
 
         </Grid.Background>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
@@ -89,8 +89,8 @@
                VerticalAlignment="Center"
                FontSize="28"/>
 
-       
-            <Label x:Name="Type"  Grid.Column="1"
+
+        <Label x:Name="Type"  Grid.Column="1"
                 Grid.Row="4"
                 HorizontalAlignment="Center"
                 Content="Normalny"

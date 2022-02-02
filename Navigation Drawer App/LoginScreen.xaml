@@ -109,7 +109,7 @@
                         FontSize="18"
                         Content="ZAREJESTRUJ SIĘ" 
                         Click="btnRegister_click" Cursor="Hand"/>
-                <!--Incorrect credentials--> 
+                <!--Incorrect credentials-->
                 <TextBlock FontSize="17"
                            x:Name="IncorrectText"
                            Visibility="Collapsed"
@@ -122,6 +122,6 @@
 
         </materialDesign:DialogHost>
 
-                                   
+
     </materialDesign:Card>
 </Window>
