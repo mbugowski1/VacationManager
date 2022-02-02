@@ -52,4 +52,17 @@
     <Resource Include="Assets\logo.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="To_Me_form.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="To_Me_form.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
