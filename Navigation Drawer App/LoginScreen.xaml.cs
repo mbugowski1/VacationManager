@@ -29,7 +29,7 @@ namespace Navigation_Drawer_App
         public LoginScreen()
         {
             InitializeComponent();
-            Globals.Connection = new Network("127.0.0.1", 1337);
+            Globals.Connection = new Network(Globals.IPaddress, Globals.Port);
             Globals.Connection.dataReceived += Login;
             Globals.Connection.Connect();
         }
