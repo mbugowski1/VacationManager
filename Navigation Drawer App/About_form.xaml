@@ -16,7 +16,7 @@
 
             <ImageBrush x:Name="img_bg"
                                 ImageSource="Assets/Background.jpg"
-                                Stretch="None"/>
+                                Stretch="Fill"/>
 
         </Grid.Background>
         
@@ -30,7 +30,8 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <!--DATA SECTION-->
@@ -95,10 +96,26 @@
                 Content="Normalny"
                 VerticalAlignment="Center"
                 FontSize="28"/>
-           
+
+        <Label Grid.Row="5"
+               Grid.Column="0"
+               Content="Stan wniosku:"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               FontSize="28"/>
+
+
+        <Label  x:Name="State"
+                Grid.Column="1"
+                Grid.Row="5"
+                HorizontalAlignment="Center"
+                Content="rejected"
+                VerticalAlignment="Center"
+                FontSize="28"/>
+
         <!--SEND BUTTON-->
         <Button Grid.ColumnSpan="2"
-                Grid.Row="5"
+                Grid.Row="6"
                 Margin="0 0 0 0 "
                 x:Name="loginBtn"
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"

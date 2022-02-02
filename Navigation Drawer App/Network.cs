@@ -62,10 +62,10 @@ namespace Navigation_Drawer_App
             dataReceived?.Invoke(this, args);
             _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
         }
-        public async Task SendMessage(byte[] message)
+        public void SendMessage(byte[] message)
         {
             if (!_socket.Connected) throw new SocketException();
-            await _socket.SendAsync(message, SocketFlags.None);
+            _socket.Send(message, SocketFlags.None);
         }
         public async Task<Message> ReceiveMessage()
         {
