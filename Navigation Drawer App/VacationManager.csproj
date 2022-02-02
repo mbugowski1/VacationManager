@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VacationManagerBackend\VacationManagerBackend.csproj" />
+    <ProjectReference Include="..\VacationManagerLibrary\VacationManagerLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\a.jpg" />
     <Resource Include="Assets\closeBtn_MouseOver.png" />
     <Resource Include="Assets\holiday_1.png" />
@@ -45,6 +50,19 @@
     <Resource Include="Assets\TgBtn_default.png" />
     <Resource Include="Assets\tgBtn_MouseOver.png" />
     <Resource Include="Assets\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="To_Me_form.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="To_Me_form.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

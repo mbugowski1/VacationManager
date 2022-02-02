@@ -9,8 +9,8 @@ namespace VacationManagerServer.Database
 {
     internal class CodeDoesNotExistException : Exception
     {
-        public Message.Code Code { get; set; }
+        public VacationEvent.Code Code { get; set; }
         private static string defaultMessage = " doesn\'t exist";
-        public CodeDoesNotExistException(Message.Code code) : base(code + defaultMessage) => Code = code;
+        public CodeDoesNotExistException(VacationEvent.Code code) : base(code + defaultMessage) => Code = code;
     }
 }

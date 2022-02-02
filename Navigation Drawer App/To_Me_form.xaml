@@ -1,4 +1,4 @@
-﻿<Window x:Class="Navigation_Drawer_App.About_form"
+﻿<Window x:Class="Navigation_Drawer_App.To_Me_form"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -50,12 +50,12 @@
         <!--How many days remain-->
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="Stanowisko: "
+               Content="Wnioskodawca: "
                HorizontalAlignment="Right"
                FontSize="28"/>
         <Label x:Name="Position" Grid.Row="1"
                Grid.Column="1"
-               Content="Asystent Menedżera"
+               Content="Dwight Schrute"
                HorizontalAlignment="Center"
                FontSize="28"/>
         <!--When to start and end holiday-->
@@ -97,17 +97,43 @@
                 FontSize="28"/>
            
         <!--SEND BUTTON-->
-        <Button Grid.ColumnSpan="2"
-                Grid.Row="5"
-                Margin="0 0 0 0 "
-                x:Name="loginBtn"
+        <Grid Grid.Column="0"
+              Grid.Row="5"
+              Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                Margin="10 10 20 0 "
+                x:Name="Accept"
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 Height="53"
-                Width="300"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 FontSize="18"
-                Content="POWRÓT" Cursor="Hand" Click="loginBtn_Click" />
+                Content="AKCEPTUJ" Cursor="Hand" Click="Accept_Click" />
+            <Button Grid.Column="1"
+                Margin="10 10 20 0 "
+                x:Name="Revert"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Height="53"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                FontSize="18"
+                Content="POWRÓT" Cursor="Hand" Click="Revert_Click" />
+            <Button Grid.Column="2"
+                Margin="10 10 20 0 "
+                x:Name="Cancel"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Height="53"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                FontSize="18"
+                Content="ODRZUĆ" Cursor="Hand" Click="Cancel_Click"  />
 
+        </Grid>
+        
     </Grid>
 </Window>

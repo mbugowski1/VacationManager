@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VacationManagerLibrary;
 
 namespace Navigation_Drawer_App
 {
@@ -19,9 +20,14 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class About_form : Window
     {
-        public About_form()
+        public About_form(Person worker, VacationEvent ev)
         {
             InitializeComponent();
+            Credentials.Content = worker.Firstname + " " + worker.Lastname;
+            Position.Content = worker.Position;
+            Start.Content = ev.Start.ToShortDateString();
+            Stop.Content = ev.Stop.ToShortDateString();
+            Type.Content = ev.TypeDesc;
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)

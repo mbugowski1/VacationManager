@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VacationManagerBackend;
+using VacationManagerLibrary;
 
 namespace Navigation_Drawer_App
 {
@@ -20,9 +24,13 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class LoginScreen : Window
     {
+        private MainWindow dashboard;
         public LoginScreen()
         {
             InitializeComponent();
+            Globals.Connection = new Network("127.0.0.1", 1337);
+            Globals.Connection.dataReceived += Login;
+            Globals.Connection.Connect();
         }
         public bool isDarkTheme { get; set; }
 
@@ -57,16 +65,54 @@ namespace Navigation_Drawer_App
 
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
-            bool valid = true;
-            if (valid)
+            if (txtUsername.Text.Length == 0 || txtPassword.Password.Length == 0)
+                return;
+            string[] cred = new string[2];
+            cred[0] = txtUsername.Text;
+            cred[1] = txtPassword.Password;
+            var message = new Message();
+            message.Operation = Message.Code.CheckPass;
+            message.Data = Serializer.Serialize(cred);
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
+        }
+        private void Login(object source, Message message)
+        {
+            if(message.Operation == Message.Code.CheckPass)
             {
-                MainWindow dashboard = new MainWindow();
-                dashboard.Show();
-                this.Close();
+                bool result = Serializer.Deserialize<bool>(message.Data);
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    if (result)
+                    {
+                        dashboard = new MainWindow(this);
+                        dashboard.Show();
+                        this.Visibility = Visibility.Collapsed;
+
+                        Globals.Connection.dataReceived += GetData;
+                        Message msg = new Message();
+                        msg.Operation = Message.Code.GetData;
+                        msg.Data = Serializer.Serialize(txtUsername.Text);
+                        byte[] data = Serializer.Serialize(msg);
+                        Globals.Connection.SendMessage(data);
+                        txtUsername.Text = String.Empty;
+                        txtPassword.Password = String.Empty;
+                    }
+                    else
+                    {
+                        IncorrectText.Visibility = Visibility.Visible;
+                    }
+                });
             }
-            else
+        }
+        private void GetData(object source, Message message)
+        {
+            if(message.Operation == Message.Code.GetData)
             {
-                IncorrectText.Visibility = Visibility.Visible;
+                Person person = Serializer.Deserialize<Person>(message.Data);
+                Globals.Username = person.Username;
+                Globals.Firstname = person.Firstname;
+                Globals.Lastname = person.Lastname;
+                Globals.Position = person.Position;
             }
         }
     }

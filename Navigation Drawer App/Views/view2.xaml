@@ -24,7 +24,7 @@
                Grid.Row="0"
                Content="Aktualne wnioski o urlop"
                FontSize="32"/>
-        <ListView   Grid.Row="1"
+        <ListView x:Name="EventListBox"   Grid.Row="1"
                     Grid.Column="1"
                     HorizontalContentAlignment="Center">
             <ListViewItem>
@@ -37,7 +37,7 @@
             </ListViewItem>
             <ListViewItem>
                 <Button Height="100"
-                        Width="200">
+                        Width="200" Cursor="Hand">
                     <TextBlock TextWrapping="Wrap"
                              TextAlignment="Center"
                              Text="Wniosek o urlop z dnia "></TextBlock>
