@@ -27,8 +27,7 @@ namespace Navigation_Drawer_App.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            About_form af=new About_form();
-            af.Show();
+            
         }
     }
 }

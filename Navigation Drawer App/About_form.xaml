@@ -39,7 +39,7 @@
          Grid.Row="0"
          VerticalAlignment="Center"
          HorizontalAlignment="Center"/>
-        <Label x:Name="Dane" 
+        <Label x:Name="Credentials" 
                    Grid.Column="0"
                    Grid.Row="0"
                    Content="Szymon Kordal"
@@ -53,7 +53,7 @@
                Content="Stanowisko: "
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <Label Grid.Row="1"
+        <Label x:Name="Position" Grid.Row="1"
                Grid.Column="1"
                Content="Asystent Menedżera"
                HorizontalAlignment="Center"
@@ -64,7 +64,7 @@
                Content="Start urlopu:"
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <Label  Grid.Column="1"
+        <Label x:Name="Start"  Grid.Column="1"
                 Grid.Row="2"
                 HorizontalAlignment="Center"
                 Content="14.02.2021r"
@@ -74,7 +74,7 @@
                Content="Koniec urlopu:"
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <Label  Grid.Column="1"
+        <Label x:Name="Stop"  Grid.Column="1"
                 Grid.Row="3"
                 HorizontalAlignment="Center"
                 Content="21.02.2021r"
@@ -89,7 +89,7 @@
                FontSize="28"/>
 
        
-            <Label  Grid.Column="1"
+            <Label x:Name="Type"  Grid.Column="1"
                 Grid.Row="4"
                 HorizontalAlignment="Center"
                 Content="Normalny"

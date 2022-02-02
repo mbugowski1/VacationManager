@@ -87,15 +87,15 @@ namespace Navigation_Drawer_App
                         dashboard = new MainWindow(this);
                         dashboard.Show();
                         this.Visibility = Visibility.Collapsed;
-                        txtUsername.Text = String.Empty;
-                        txtPassword.Password = String.Empty;
 
                         Globals.Connection.dataReceived += GetData;
                         Message msg = new Message();
                         msg.Operation = Message.Code.GetData;
+                        msg.Data = Serializer.Serialize(txtUsername.Text);
                         byte[] data = Serializer.Serialize(msg);
-                        //https://open.spotify.com/track/40YcuQysJ0KlGQTeGUosTC?si=d4db8de5a268467e
                         Globals.Connection.SendMessage(data);
+                        txtUsername.Text = String.Empty;
+                        txtPassword.Password = String.Empty;
                     }
                     else
                     {

@@ -19,7 +19,7 @@ namespace VacationManagerLibrary
         {
             byte[] text = Encoding.UTF8.GetBytes(message);
             using var memStream = new MemoryStream();
-            JsonSerializer.Serialize(memStream, message);
+            JsonSerializer.Serialize(memStream, text);
             return memStream.ToArray();
         }
         public static byte[] Serialize<T>(T message)

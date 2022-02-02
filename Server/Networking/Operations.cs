@@ -17,6 +17,7 @@ namespace VacationManagerServer
             Socket client = (Socket)source;
             byte[][] byteArgs;
             int[] intArgs;
+            string user;
             bool result;
             switch (message.Operation)
             {
@@ -36,7 +37,8 @@ namespace VacationManagerServer
                 case GetData:
                     if (_clients[client] == String.Empty)
                         throw new UnauthorizedAccessException();
-                    SendMessage<Person>(client, GetData, DatabaseConnection.GetData(_clients[client]));
+                    user = Encoding.UTF8.GetString(Serializer.Deserialize<byte[]>(message.Data));
+                    SendMessage<Person>(client, GetData, DatabaseConnection.GetData(user));
                     break;
                 case AddEvent:
                     if (_clients[client] == String.Empty)
