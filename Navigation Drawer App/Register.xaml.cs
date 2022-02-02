@@ -34,6 +34,9 @@ namespace Navigation_Drawer_App
         {
             RegisterUser(txtUsername.Text, txtPassword.Password, Firstname.Text, Surname.Text, Position.Text, Supervisor.Text);
             Globals.Username = txtUsername.Text;
+            Globals.Firstname = Firstname.Text;
+            Globals.Lastname = Surname.Text;
+            Globals.Position = Position.Text;
             mainWindow.Show();
             Close();
         }

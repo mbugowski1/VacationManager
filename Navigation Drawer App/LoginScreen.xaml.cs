@@ -115,6 +115,7 @@ namespace Navigation_Drawer_App
                 Globals.Lastname = person.Lastname;
                 Globals.Position = person.Position;
             }
+            Globals.Connection.dataReceived -= GetData;
         }
 
         private void btnRegister_click(object sender, RoutedEventArgs e)
