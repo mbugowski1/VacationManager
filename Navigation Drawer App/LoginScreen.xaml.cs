@@ -32,6 +32,8 @@ namespace Navigation_Drawer_App
             Globals.Connection = new Network(Globals.IPaddress, Globals.Port);
             Globals.Connection.dataReceived += Login;
             Globals.Connection.Connect();
+            dashboard = new MainWindow(this);
+            registerWindow = new Register(this, dashboard);
         }
         public bool isDarkTheme { get; set; }
 
@@ -85,7 +87,6 @@ namespace Navigation_Drawer_App
                 {
                     if (result)
                     {
-                        dashboard = new MainWindow(this);
                         dashboard.Show();
                         this.Visibility = Visibility.Collapsed;
 
@@ -120,11 +121,6 @@ namespace Navigation_Drawer_App
 
         private void btnRegister_click(object sender, RoutedEventArgs e)
         {
-            if (registerWindow == null)
-            {
-                dashboard = new MainWindow(this);
-                registerWindow = new Register(this, dashboard);
-            }
             registerWindow.Show();
             this.Hide();
         }
