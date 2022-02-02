@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VacationManagerLibrary;
 
 namespace Navigation_Drawer_App.Views
 {
@@ -20,9 +21,54 @@ namespace Navigation_Drawer_App.Views
     /// </summary>
     public partial class view1: UserControl
     {
-        public view1()
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
+        public VacationEvent.Type Type { get; private set; }
+        private readonly string _username;
+        private string _recipient;
+        public view1(string username, string firstname, string lastname, int days)
         {
             InitializeComponent();
+            Credentials.Content = firstname + " " + lastname;
+            DaysLeft.Content = days;
+            _username = username;
+            Globals.Connection.dataReceived += GetSupervisor;
+            var msg = new Message();
+            msg.Operation = Message.Code.GetMySupervisors;
+            Globals.Connection.SendMessage(Serializer.Serialize(msg));
+        }
+
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (StartDate.SelectedDate == null)
+                return;
+            if (EndDate.SelectedDate == null)
+                return;
+            Start = (DateTime)StartDate.SelectedDate;
+            End = (DateTime)EndDate.SelectedDate;
+            if ((bool)Demanded.IsChecked)
+                Type = VacationEvent.Type.Demanded;
+            else
+                Type = VacationEvent.Type.Normal;
+            var vacEvent = new VacationEvent();
+            vacEvent.Sender = _username;
+            vacEvent.Recipient = _recipient;
+            vacEvent.Start = Start;
+            vacEvent.Stop = End;
+            vacEvent.CodeId = VacationEvent.Code.Pending;
+            vacEvent.TypeId = Type;
+            var msg = new Message();
+            msg.Operation = Message.Code.AddEvent;
+            msg.Data = Serializer.Serialize(vacEvent);
+            Globals.Connection.SendMessage(Serializer.Serialize(msg));
+        }
+        private void GetSupervisor(object sender, Message args)
+        {
+            if (args.Operation == Message.Code.GetMySupervisors)
+            {
+                _recipient = Serializer.Deserialize<List<string>>(args.Data)[0];
+            }
+            Globals.Connection.dataReceived -= GetSupervisor;
         }
     }
 }

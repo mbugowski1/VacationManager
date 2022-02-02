@@ -28,7 +28,7 @@
          Grid.Row="0"
          VerticalAlignment="Center"
          HorizontalAlignment="Center"/>
-            <Label x:Name="Dane" 
+            <Label x:Name="Credentials" 
                    Grid.Column="0"
                    Grid.Row="0"
                    Content="Szymon Kordal"
@@ -42,7 +42,7 @@
                Content="Liczba dni: "
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <Label Grid.Row="1"
+        <Label x:Name="DaysLeft" Grid.Row="1"
                Grid.Column="1"
                Content="25"
                HorizontalAlignment="Center"
@@ -53,7 +53,7 @@
                Content="Start urlopu:"
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <DatePicker Grid.Column="1"
+        <DatePicker x:Name="StartDate" Grid.Column="1"
                     Grid.Row="2"
                     HorizontalAlignment="Center"
                     Margin="0,5,0,0"
@@ -65,7 +65,7 @@
                Content="Koniec urlopu:"
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <DatePicker Grid.Column="1"
+        <DatePicker x:Name="EndDate" Grid.Column="1"
                     Grid.Row="3"
                     HorizontalAlignment="Center"
                     Margin="0,5,0,0"
@@ -88,14 +88,14 @@
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
-            <RadioButton Content="Na żądanie"
+            <RadioButton x:Name="Demanded" Content="Na żądanie"
                          FontSize="22"
                          Grid.Row="0"
                          HorizontalAlignment="Center"/>
-            <RadioButton Content="Normalny"
+            <RadioButton x:Name="Normal" Content="Normalny"
                          FontSize="22"
                          Grid.Row="1"
-                         HorizontalAlignment="Center"/>
+                         HorizontalAlignment="Center" IsChecked="True"/>
         </Grid>
         
         <!--SEND BUTTON-->
@@ -109,7 +109,7 @@
                 Width="300"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 FontSize="18"
-                Content="WYŚLIJ" Cursor="Hand" />
+                Content="WYŚLIJ" Cursor="Hand" Click="loginBtn_Click" />
 
     </Grid>
 </UserControl>

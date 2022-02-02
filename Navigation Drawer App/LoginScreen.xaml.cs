@@ -24,13 +24,13 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class LoginScreen : Window
     {
-        public Network _network = new Network("127.0.0.1", 1337);
         private MainWindow dashboard;
         public LoginScreen()
         {
             InitializeComponent();
-            _network.dataReceived += Login;
-            _network.Connect();
+            Globals.Connection = new Network("127.0.0.1", 1337);
+            Globals.Connection.dataReceived += Login;
+            Globals.Connection.Connect();
         }
         public bool isDarkTheme { get; set; }
 
@@ -73,7 +73,7 @@ namespace Navigation_Drawer_App
             var message = new Message();
             message.Operation = Message.Code.CheckPass;
             message.Data = Serializer.Serialize(cred);
-            _network.SendMessage(Serializer.Serialize(message));
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
         }
         private void Login(object source, Message message)
         {
@@ -89,12 +89,30 @@ namespace Navigation_Drawer_App
                         this.Visibility = Visibility.Collapsed;
                         txtUsername.Text = String.Empty;
                         txtPassword.Password = String.Empty;
+
+                        Globals.Connection.dataReceived += GetData;
+                        Message msg = new Message();
+                        msg.Operation = Message.Code.GetData;
+                        byte[] data = Serializer.Serialize(msg);
+                        //https://open.spotify.com/track/40YcuQysJ0KlGQTeGUosTC?si=d4db8de5a268467e
+                        Globals.Connection.SendMessage(data);
                     }
                     else
                     {
                         IncorrectText.Visibility = Visibility.Visible;
                     }
                 });
+            }
+        }
+        private void GetData(object source, Message message)
+        {
+            if(message.Operation == Message.Code.GetData)
+            {
+                Person person = Serializer.Deserialize<Person>(message.Data);
+                Globals.Username = person.Username;
+                Globals.Firstname = person.Firstname;
+                Globals.Lastname = person.Lastname;
+                Globals.Position = person.Position;
             }
         }
     }

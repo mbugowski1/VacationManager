@@ -23,13 +23,11 @@ namespace Navigation_Drawer_App
     public partial class MainWindow : Window
     {
         public LoginScreen loginScreen;
-        private Network _network;
         public MainWindow(LoginScreen loginScreen)
         {
             InitializeComponent();
             DataContext = new MainViewModel();
             this.loginScreen = loginScreen;
-            _network = loginScreen._network;
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
@@ -75,7 +73,7 @@ namespace Navigation_Drawer_App
             var message = new Message();
             message.Operation = Message.Code.Exit;
             byte[] send = Serializer.Serialize(message);
-            _network.SendMessage(send);
+            Globals.Connection.SendMessage(send);
         }
     }
 }

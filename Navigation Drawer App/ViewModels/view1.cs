@@ -8,5 +8,9 @@ namespace Navigation_Drawer_App.ViewModels
 {
     public class view1 : BaseViewModel
     {
+        public view1()
+        {
+            
+        }
     }
 }
