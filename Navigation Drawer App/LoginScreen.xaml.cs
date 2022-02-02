@@ -84,10 +84,11 @@ namespace Navigation_Drawer_App
                 {
                     if (result)
                     {
-                        dashboard = new MainWindow();
-                        dashboard.LoginScreen = this;
+                        dashboard = new MainWindow(this);
                         dashboard.Show();
                         this.Visibility = Visibility.Collapsed;
+                        txtUsername.Text = String.Empty;
+                        txtPassword.Password = String.Empty;
                     }
                     else
                     {

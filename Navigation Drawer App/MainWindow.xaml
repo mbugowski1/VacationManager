@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Navigation_Drawer_App"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="VacationManager"
         Height="600"
         Width="750"
-        Topmost="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">

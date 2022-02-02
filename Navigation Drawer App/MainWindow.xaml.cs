@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VacationManagerLibrary;
 
 namespace Navigation_Drawer_App
 {
@@ -21,11 +22,14 @@ namespace Navigation_Drawer_App
     /// </summary>
     public partial class MainWindow : Window
     {
-        public LoginScreen LoginScreen { get; set; }
-        public MainWindow()
+        public LoginScreen loginScreen;
+        private Network _network;
+        public MainWindow(LoginScreen loginScreen)
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            this.loginScreen = loginScreen;
+            _network = loginScreen._network;
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
@@ -55,14 +59,23 @@ namespace Navigation_Drawer_App
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            LoginScreen.Close();
+            Logout();
+            loginScreen.Close();
             Close();
         }
 
         private void btnLogout_click(object sender, RoutedEventArgs e)
         {
-            LoginScreen.Visibility = Visibility.Visible;
+            Logout();
+            loginScreen.Visibility = Visibility.Visible;
             this.Close();
+        }
+        private void Logout()
+        {
+            var message = new Message();
+            message.Operation = Message.Code.Exit;
+            byte[] send = Serializer.Serialize(message);
+            _network.SendMessage(send);
         }
     }
 }

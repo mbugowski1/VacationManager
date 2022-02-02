@@ -9,6 +9,7 @@ using System.Threading;
 
 namespace VacationManagerServerTests
 {
+    /*
     public class NetworkTests
     {
         [Fact]
@@ -116,4 +117,5 @@ namespace VacationManagerServerTests
             Assert.True(eventFired);
         }
     }
+    */
 }
