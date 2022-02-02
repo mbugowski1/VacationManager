@@ -81,7 +81,7 @@
                              BorderBrush="{DynamicResource MaterialDesignDivider}"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}" Cursor="IBeam"/>
                 <TextBox Margin="0 20 0 0 "
-                         x:Name="name"
+                         x:Name="Firstname"
                          Width="300"
                          FontSize="18"
                          materialDesign:HintAssist.Hint="Wprowadź imię"
@@ -89,7 +89,7 @@
                          BorderBrush="{DynamicResource MaterialDesignDivider}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" Cursor="IBeam"/>
                 <TextBox Margin="0 20 0 0 "
-                         x:Name="surname"
+                         x:Name="Surname"
                          Width="300"
                          FontSize="18"
                          materialDesign:HintAssist.Hint="Wprowadź nazwisko"
@@ -97,7 +97,7 @@
                          BorderBrush="{DynamicResource MaterialDesignDivider}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" Cursor="IBeam"/>
                 <TextBox Margin="0 20 0 0 "
-                         x:Name="work"
+                         x:Name="Position"
                          Width="300"
                          FontSize="18"
                          materialDesign:HintAssist.Hint="Wprowadź pozycję"
@@ -105,7 +105,7 @@
                          BorderBrush="{DynamicResource MaterialDesignDivider}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" Cursor="IBeam"/>
                 <TextBox Margin="0 20 0 0 "
-                         x:Name="supervisor"
+                         x:Name="Supervisor"
                          Width="300"
                          FontSize="18"
                          materialDesign:HintAssist.Hint="Wprowadź przełożonego"
