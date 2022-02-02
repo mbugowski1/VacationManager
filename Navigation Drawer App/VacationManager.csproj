@@ -59,6 +59,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="RegisterScreen.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="To_Me_form.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

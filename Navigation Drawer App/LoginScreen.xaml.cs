@@ -25,6 +25,7 @@ namespace Navigation_Drawer_App
     public partial class LoginScreen : Window
     {
         private MainWindow dashboard;
+        private Register registerWindow;
         public LoginScreen()
         {
             InitializeComponent();
@@ -114,6 +115,17 @@ namespace Navigation_Drawer_App
                 Globals.Lastname = person.Lastname;
                 Globals.Position = person.Position;
             }
+        }
+
+        private void btnRegister_click(object sender, RoutedEventArgs e)
+        {
+            if (registerWindow == null)
+            {
+                dashboard = new MainWindow(this);
+                registerWindow = new Register(this, dashboard);
+            }
+            registerWindow.Show();
+            this.Hide();
         }
     }
 }
