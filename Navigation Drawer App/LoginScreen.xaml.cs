@@ -65,23 +65,15 @@ namespace Navigation_Drawer_App
 
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
+            if (txtUsername.Text.Length == 0 || txtPassword.Password.Length == 0)
+                return;
             string[] cred = new string[2];
-            cred[0] = "szef";
-            cred[1] = "root";
+            cred[0] = txtUsername.Text;
+            cred[1] = txtPassword.Password;
             var message = new Message();
             message.Operation = Message.Code.CheckPass;
             message.Data = Serializer.Serialize(cred);
             _network.SendMessage(Serializer.Serialize(message));
-            /*bool result = true;
-            if (result)
-            {
-                dashboard.Show();
-                this.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                IncorrectText.Visibility = Visibility.Visible;
-            }*/
         }
         private void Login(object source, Message message)
         {
