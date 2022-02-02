@@ -47,15 +47,17 @@ namespace Navigation_Drawer_App.Views
             if ((bool)Demanded.IsChecked)
             {
                 Type = VacationEvent.Type.Demanded;
-                vacEvent.CodeId = VacationEvent.Code.Accepted;
             }
             else
             {
                 Type = VacationEvent.Type.Normal;
-                vacEvent.CodeId = VacationEvent.Code.Pending;
             }
             vacEvent.Sender = Globals.Username;
             vacEvent.Recipient = _recipient;
+            if(_recipient == Globals.Username)
+                vacEvent.CodeId = VacationEvent.Code.Accepted;
+            else
+                vacEvent.CodeId = VacationEvent.Code.Pending;
             vacEvent.Start = Start;
             vacEvent.Stop = End;
             vacEvent.TypeId = Type;
