@@ -24,14 +24,11 @@ namespace Navigation_Drawer_App.Views
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
         public VacationEvent.Type Type { get; private set; }
-        private readonly string _username;
         private string _recipient;
-        public view1(string username, string firstname, string lastname, int days)
+        public view1()
         {
             InitializeComponent();
-            Credentials.Content = firstname + " " + lastname;
-            DaysLeft.Content = days;
-            _username = username;
+            Credentials.Content = Globals.Firstname + " " + Globals.Lastname;
             Globals.Connection.dataReceived += GetSupervisor;
             var msg = new Message();
             msg.Operation = Message.Code.GetMySupervisors;
@@ -51,7 +48,7 @@ namespace Navigation_Drawer_App.Views
             else
                 Type = VacationEvent.Type.Normal;
             var vacEvent = new VacationEvent();
-            vacEvent.Sender = _username;
+            vacEvent.Sender = Globals.Username;
             vacEvent.Recipient = _recipient;
             vacEvent.Start = Start;
             vacEvent.Stop = End;
@@ -61,6 +58,8 @@ namespace Navigation_Drawer_App.Views
             msg.Operation = Message.Code.AddEvent;
             msg.Data = Serializer.Serialize(vacEvent);
             Globals.Connection.SendMessage(Serializer.Serialize(msg));
+            Sent().GetAwaiter();
+            
         }
         private void GetSupervisor(object sender, Message args)
         {
@@ -69,6 +68,12 @@ namespace Navigation_Drawer_App.Views
                 _recipient = Serializer.Deserialize<List<string>>(args.Data)[0];
             }
             Globals.Connection.dataReceived -= GetSupervisor;
+        }
+        private async Task Sent()
+        {
+            State.Content = "Wyslano";
+            await Task.Delay(5000);
+            State.Content = "Oczekiwanie";
         }
     }
 }

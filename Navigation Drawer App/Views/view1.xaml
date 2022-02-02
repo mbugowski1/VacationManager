@@ -39,12 +39,12 @@
         <!--How many days remain-->
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="Liczba dni: "
+               Content="Stan:"
                HorizontalAlignment="Right"
                FontSize="28"/>
-        <Label x:Name="DaysLeft" Grid.Row="1"
+        <Label x:Name="State" Grid.Row="1"
                Grid.Column="1"
-               Content="25"
+               Content="Oczekiwanie"
                HorizontalAlignment="Center"
                FontSize="28"/>
         <!--When to start and end holiday-->
