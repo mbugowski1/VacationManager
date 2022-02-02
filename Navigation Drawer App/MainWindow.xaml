@@ -42,12 +42,12 @@
             <Setter Property="Placement" Value="Right"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="100" />
-            <Setter Property="Margin" Value="140,0,0,0" />
+            <Setter Property="Margin" Value="60,0,0,0" />
             <Setter Property="Background" Value="#cbf080" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="Fonts/Lato-regular.ttf #Lato" />
-            <Setter Property="PlacementRectangle" Value="160,0,0,0" />
+            <Setter Property="PlacementRectangle" Value="60,0,0,0" />
             <Setter Property="HorizontalOffset" Value="15" />
             <Setter Property="VerticalOffset" Value="6" />
             <Setter Property="HasDropShadow" Value="True" />
@@ -197,8 +197,7 @@
                 <Grid.Background>
 
                     <ImageBrush x:Name="img_bg"
-                                ImageSource="Assets/Background.jpg"
-                                Stretch="None"/>
+                                ImageSource="Assets/Background.jpg"/>
 
 
 
