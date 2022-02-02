@@ -35,12 +35,12 @@
                Grid.Row="0"
                Content="Wnioski do mnie:"
                FontSize="32"/>
-        <ListView   Grid.Row="1"
+        <ListView x:Name="EventListBox"   Grid.Row="1"
                     Grid.Column="1"
                     HorizontalContentAlignment="Center">
             <ListViewItem>
                 <Button Height="100"
-                        Width="200" Click="Button_Click"
+                        Width="200"
                         >
                     <TextBlock Style="{StaticResource textInButtonStyle}"
                              Text="Wniosek o urlop pracownika z dnia  "></TextBlock>

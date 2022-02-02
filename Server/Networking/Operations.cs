@@ -49,7 +49,7 @@ namespace VacationManagerServer
                     if (_clients[client] == String.Empty)
                         throw new UnauthorizedAccessException();
                     intArgs = Serializer.Deserialize<int[]>(message.Data);
-                    SendMessage<bool>(client, ChangeEventCode, DatabaseConnection.ChangeEventCode(intArgs[0], (Message.Code)intArgs[1]));
+                    SendMessage<bool>(client, ChangeEventCode, DatabaseConnection.ChangeEventCode(intArgs[0], (VacationEvent.Code)intArgs[1]));
                     break;
                 case NewSupervisor:
                     if (_clients[client] == String.Empty)

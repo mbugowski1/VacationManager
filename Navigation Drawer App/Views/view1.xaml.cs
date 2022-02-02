@@ -65,7 +65,11 @@ namespace Navigation_Drawer_App.Views
         {
             if (args.Operation == Message.Code.GetMySupervisors)
             {
-                _recipient = Serializer.Deserialize<List<string>>(args.Data)[0];
+                var list = Serializer.Deserialize<List<string>>(args.Data);
+                if (list.Count == 0)
+                    _recipient = Globals.Username;
+                else
+                    _recipient = Serializer.Deserialize<List<string>>(args.Data)[0];
             }
             Globals.Connection.dataReceived -= GetSupervisor;
         }

@@ -192,7 +192,7 @@ namespace VacationManagerServer.Database
 
             }
         }
-        public static bool ChangeEventCode(int id, Message.Code code)
+        public static bool ChangeEventCode(int id, VacationEvent.Code code)
         {
             string checkQuery = "SELECT EXISTS(SELECT codeID FROM codes WHERE codeID = @Code)";
             string query = "UPDATE events SET code = @Code WHERE ID = @Id";

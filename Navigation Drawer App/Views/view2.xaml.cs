@@ -76,9 +76,5 @@ namespace Navigation_Drawer_App.Views
                 Globals.Connection.dataReceived -= DrawEvent;
             }
         }
-        private void LoadWorkerData(object source, Message message)
-        {
-
-        }
     }
 }

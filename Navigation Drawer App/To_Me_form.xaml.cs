@@ -18,9 +18,10 @@ namespace Navigation_Drawer_App
     /// <summary>
     /// Interaction logic for About_form.xaml
     /// </summary>
-    public partial class About_form : Window
+    public partial class To_Me_form : Window
     {
-        public About_form(Person worker, VacationEvent ev)
+        private int ID;
+        public To_Me_form(Person worker, VacationEvent ev)
         {
             InitializeComponent();
             Credentials.Content = worker.Firstname + " " + worker.Lastname;
@@ -28,11 +29,35 @@ namespace Navigation_Drawer_App
             Start.Content = ev.Start.ToShortDateString();
             Stop.Content = ev.Stop.ToShortDateString();
             Type.Content = ev.TypeDesc;
+            ID = (int)ev.ID;
+
+            var message = new Message();
+            message.Operation = Message.Code.ChangeEventCode;
+            message.Data = Serializer.Serialize(new int[]{ ID, (int)VacationEvent.Code.Seen });
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
         }
 
-        private void loginBtn_Click(object sender, RoutedEventArgs e)
+        private void Accept_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            var message = new Message();
+            message.Operation = Message.Code.ChangeEventCode;
+            message.Data = Serializer.Serialize(new int[] { ID, (int)VacationEvent.Code.Accepted});
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
+            this.Close();
+        }
+
+        private void Revert_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            var message = new Message();
+            message.Operation = Message.Code.ChangeEventCode;
+            message.Data = Serializer.Serialize(new int[] { ID, (int)VacationEvent.Code.Refused });
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
+            this.Close();
         }
     }
 }
