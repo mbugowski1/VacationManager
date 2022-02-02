@@ -25,7 +25,7 @@ namespace Navigation_Drawer_App
     public partial class LoginScreen : Window
     {
         public Network _network = new Network("127.0.0.1", 1337);
-        private MainWindow dashboard = new MainWindow();
+        private MainWindow dashboard;
         public LoginScreen()
         {
             InitializeComponent();
@@ -84,6 +84,8 @@ namespace Navigation_Drawer_App
                 {
                     if (result)
                     {
+                        dashboard = new MainWindow();
+                        dashboard.LoginScreen = this;
                         dashboard.Show();
                         this.Visibility = Visibility.Collapsed;
                     }
