@@ -105,7 +105,7 @@
                FontSize="28"/>
 
 
-        <Label  x:Name="StateOf"
+        <Label  x:Name="State"
                 Grid.Column="1"
                 Grid.Row="5"
                 HorizontalAlignment="Center"

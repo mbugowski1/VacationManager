@@ -28,6 +28,7 @@ namespace Navigation_Drawer_App
             Start.Content = ev.Start.ToShortDateString();
             Stop.Content = ev.Stop.ToShortDateString();
             Type.Content = ev.TypeDesc;
+            State.Content = ev.CodeDesc;
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
