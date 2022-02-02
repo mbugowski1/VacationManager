@@ -30,24 +30,26 @@ namespace Navigation_Drawer_App
             Stop.Content = ev.Stop.ToShortDateString();
             Type.Content = ev.TypeDesc;
             ID = (int)ev.ID;
-
-            var message = new Message();
-            message.Operation = Message.Code.ChangeEventCode;
-            message.Data = Serializer.Serialize(new int[]{ ID, (int)VacationEvent.Code.Seen });
-            Globals.Connection.SendMessage(Serializer.Serialize(message));
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             var message = new Message();
             message.Operation = Message.Code.ChangeEventCode;
-            message.Data = Serializer.Serialize(new int[] { ID, (int)VacationEvent.Code.Accepted});
+            message.Data = Serializer.Serialize(new int[] { ID, Convert.ToInt32(VacationEvent.Code.Accepted) });
             Globals.Connection.SendMessage(Serializer.Serialize(message));
+            Refresh();
             this.Close();
         }
 
         private void Revert_Click(object sender, RoutedEventArgs e)
         {
+
+            var message = new Message();
+            message.Operation = Message.Code.ChangeEventCode;
+            message.Data = Serializer.Serialize(new int[] { ID, Convert.ToInt32(VacationEvent.Code.Seen) });
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
+            Refresh();
             this.Close();
         }
 
@@ -55,9 +57,16 @@ namespace Navigation_Drawer_App
         {
             var message = new Message();
             message.Operation = Message.Code.ChangeEventCode;
-            message.Data = Serializer.Serialize(new int[] { ID, (int)VacationEvent.Code.Refused });
+            message.Data = Serializer.Serialize(new int[] { ID, Convert.ToInt32(VacationEvent.Code.Refused) });
             Globals.Connection.SendMessage(Serializer.Serialize(message));
+            Refresh();
             this.Close();
+        }
+        private void Refresh()
+        {
+            var message = new Message();
+            message.Operation = Message.Code.GetEventsToMe;
+            Globals.Connection.SendMessage(Serializer.Serialize(message));
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Navigation_Drawer_App.Views
             EventListBox.Items.Clear();
             foreach (var alert in events)
             {
+                if (alert.CodeId == VacationEvent.Code.Accepted || alert.CodeId == VacationEvent.Code.Refused) continue;
                 var textBlock = new TextBlock();
                 textBlock.Text = $"Urlop pracownika od dnia {alert.Start.ToShortDateString()} do {alert.Stop.ToShortDateString()}";
                 textBlock.TextWrapping = TextWrapping.Wrap;
