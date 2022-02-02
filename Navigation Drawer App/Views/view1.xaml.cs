@@ -43,23 +43,31 @@ namespace Navigation_Drawer_App.Views
                 return;
             Start = (DateTime)StartDate.SelectedDate;
             End = (DateTime)EndDate.SelectedDate;
-            if ((bool)Demanded.IsChecked)
-                Type = VacationEvent.Type.Demanded;
-            else
-                Type = VacationEvent.Type.Normal;
             var vacEvent = new VacationEvent();
+            if ((bool)Demanded.IsChecked)
+            {
+                Type = VacationEvent.Type.Demanded;
+                vacEvent.CodeId = VacationEvent.Code.Accepted;
+            }
+            else
+            {
+                Type = VacationEvent.Type.Normal;
+                vacEvent.CodeId = VacationEvent.Code.Pending;
+            }
             vacEvent.Sender = Globals.Username;
             vacEvent.Recipient = _recipient;
             vacEvent.Start = Start;
             vacEvent.Stop = End;
-            vacEvent.CodeId = VacationEvent.Code.Pending;
             vacEvent.TypeId = Type;
             var msg = new Message();
             msg.Operation = Message.Code.AddEvent;
             msg.Data = Serializer.Serialize(vacEvent);
             Globals.Connection.SendMessage(Serializer.Serialize(msg));
             Sent().GetAwaiter();
-            
+            msg = new();
+            msg.Operation = Message.Code.GetEventsFromMe;
+            Globals.Connection.SendMessage(Serializer.Serialize(msg));
+
         }
         private void GetSupervisor(object sender, Message args)
         {

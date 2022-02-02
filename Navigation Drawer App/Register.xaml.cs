@@ -33,6 +33,7 @@ namespace Navigation_Drawer_App
         private void btnSubmit_click(object sender, RoutedEventArgs e)
         {
             RegisterUser(txtUsername.Text, txtPassword.Password, Firstname.Text, Surname.Text, Position.Text, Supervisor.Text);
+            Globals.Username = txtUsername.Text;
             mainWindow.Show();
             Close();
         }

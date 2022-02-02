@@ -304,13 +304,13 @@ namespace VacationManagerServer.Database
         {
             var events = new List<VacationEvent>();
             string query = "SELECT ID, sender, recipient, start, end, code, description, events.type, eventtypes.type as typedesc " +
-                "FROM events LEFT JOIN supervisors ON sender = worker AND recipient = supervisor " +
+                "FROM events " +
                 "LEFT JOIN codes ON codeID = code " +
                 "LEFT JOIN eventtypes ON events.type = eventtypes.typeID WHERE ";
             if (supervisor)
-                query += "supervisor = @Worker";
+                query += "recipient = @Worker";
             else
-                query += "worker = @Worker";
+                query += "sender = @Worker";
             using(var connection = new MySqlConnection(ConnectionString))
             {
                 var command = new MySqlCommand(query, connection);
